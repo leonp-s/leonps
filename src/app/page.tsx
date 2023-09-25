@@ -1,207 +1,66 @@
 "use client";
 
 import { ThemeChanger } from "@/app/ThemeChanger";
-import Forest from "@/components/forest";
-
-import { useRef } from "react";
+import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
+import Nature from "@/components/nature";
 import {
-  easeInOut,
   motion,
+  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
+  useVelocity,
 } from "framer-motion";
-import Stars from "@/components/stars";
-import { useElementSize } from "usehooks-ts";
+import { useState } from "react";
 
-const Home = () => {
-  const ref = useRef(null);
+const Navbar = () => {
   const { scrollYProgress } = useScroll({
-    target: ref,
     offset: ["start start", "end end"],
   });
+  const [transparentBackground, setTransparentBackground] = useState(true);
 
-  const scrollYProgressSmooth = useSpring(scrollYProgress, {
-    damping: 50,
-    stiffness: 400,
-  });
+  const scrollVelocity = useVelocity(scrollYProgress);
+  const scaledScrollVelocity = useTransform(scrollVelocity, [-1, 1], [-10, 10]);
+  const smoothedScrollVelocity = useSpring(scaledScrollVelocity);
 
-  const [animDivRef, { width, height }] = useElementSize();
-
-  const sunOpacity = useTransform(
-    scrollYProgressSmooth,
-    [0, 0.4, 1],
-    [0.6, 0, 0],
-  );
-
-  const moonOpacity = useTransform(
-    scrollYProgressSmooth,
-    [0, 0.6, 1],
-    [0, 0, 0.8],
-  );
-
-  const scale = useTransform(scrollYProgressSmooth, [0, 1], [10, 3]);
-  const lunarRotation = useTransform(scrollYProgressSmooth, [0, 1], [-20, 200]);
-
-  const xPos = useTransform(scrollYProgressSmooth, [0, 1], ["0%", "80%"]);
-  const xPosInv = useTransform(scrollYProgressSmooth, [0, 1], ["80%", "0%"]);
-
-  const yPos = useTransform(
-    scrollYProgressSmooth,
-    [0, 0.5, 1],
-    ["20%", "10%", "20%"],
-  );
-
-  const yPosInv = useTransform(scrollYProgressSmooth, [0, 1], ["28%", "0%"]);
-
-  const backgroundGradient = (
-    <div
-      className="absolute w-full h-full"
-      style={{
-        rotate: "180deg",
-        background:
-          "linear-gradient(-8deg, #fef3c7, #fefed8 5%, #f8e7e6 15%, #b4b0c6 30%, #4f4d64 50%, #433f53 60%, #1f2937 70%, #030712)",
-        zIndex: -1,
-        top: 0,
-      }}
-    />
-  );
-
-  const sun = (
-    <motion.div
-      className="p-4 sticky w-fit"
-      style={{
-        left: xPos,
-        top: yPos,
-        opacity: sunOpacity,
-      }}
-    >
-      <motion.svg
-        width="140"
-        height="140"
-        viewBox="-5 -5 10 10"
-        initial="hidden"
-        animate="visible"
-      >
-        <defs>
-          <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <motion.stop offset="0%" style={{ stopColor: "#f59e0b" }} />
-            <motion.stop offset="100%" style={{ stopColor: "#fefed8" }} />
-          </linearGradient>
-        </defs>
-        <motion.circle r="5" fill="url(#sunGrad)" />
-      </motion.svg>
-    </motion.div>
-  );
-
-  const moon = (
-    <motion.div
-      className="p-4 sticky w-full"
-      style={{
-        top: yPos,
-        opacity: moonOpacity,
-      }}
-    >
-      <motion.div className="relative w-full">
-        <motion.svg
-          width="140"
-          height="140"
-          viewBox="-5 -5 10 10"
-          initial="hidden"
-          animate="visible"
-          className="absolute"
-          style={{ right: xPosInv }}
-        >
-          <defs>
-            <mask id="moon">
-              <rect fill="white" x="-5" y="-5" width="10" height="10"></rect>
-              <motion.circle fill="black" cx={scale} r="5" />
-            </mask>
-            <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <motion.stop offset="0%" style={{ stopColor: "#111827" }} />
-              <motion.stop offset="100%" style={{ stopColor: "#1f2937" }} />
-            </linearGradient>
-          </defs>
-          <motion.circle
-            r="5"
-            fill="url(#moonGrad)"
-            mask="url(#moon)"
-            style={{
-              rotate: lunarRotation,
-            }}
-          />
-        </motion.svg>
-      </motion.div>
-    </motion.div>
+  useMotionValueEvent(scrollYProgress, "change", (latest) =>
+    setTransparentBackground(scrollYProgress.get() < 0.06),
   );
 
   return (
+    <div className="fixed w-full flex justify-center p-4 top-0">
+      {/*<ThemeChanger />*/}
+      <motion.div
+        className="tabs tabs-boxed p-2"
+        style={{ marginTop: smoothedScrollVelocity }}
+        animate={{
+          ...(transparentBackground && {
+            backgroundColor: "rgba(255,255,255,0)",
+          }),
+        }}
+      >
+        <a className="tab mr-4">
+          Work <kbd className="kbd kbd-sm rounded-md ml-1">/</kbd>
+        </a>
+        <a className="tab mr-4">Projects</a>
+        <a className="tab mr-4">
+          <BiLogoGithub />
+        </a>
+        <a className="tab mr-4">
+          <BiLogoLinkedin />
+        </a>
+      </motion.div>
+    </div>
+  );
+};
+const Home = () => {
+  return (
     <main>
-      <div className="relative" ref={ref}>
-        {backgroundGradient}
-        <div className="p-4">
-          <ThemeChanger />
-        </div>
-        <div className="w-full" style={{ height: "400vh" }}>
-          {sun}
-          {moon}
-        </div>
-        <div className="sticky bottom-0 max-h-full" ref={animDivRef}>
-          <Forest forestSeed="United Kingdom" width={width} height={400} />
-          <motion.div
-            className="absolute bottom-0"
-            style={{ opacity: moonOpacity, bottom: yPosInv }}
-          >
-            <Stars width={width} height={1000} />
-          </motion.div>
-        </div>
-      </div>
+      <Nature />
+      <Navbar />
       <div className="bg-gray-900" style={{ height: "200vh" }} />
     </main>
   );
 };
 
 export default Home;
-
-/*
- <motion.div
-          className="p-4 sticky w-fit"
-          style={{
-            left: xPos,
-            top: yPos,
-          }}
-        >
-          <motion.svg
-            width="140"
-            height="140"
-            viewBox="-5 -5 10 10"
-            initial="hidden"
-            animate="visible"
-          >
-            <defs>
-              <mask id="moon">
-                <rect fill="white" x="-5" y="-5" width="10" height="10"></rect>
-                <motion.circle fill="black" cx={scale} r="5" />
-              </mask>
-              <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <motion.stop
-                  offset="0%"
-                  style={{ stopColor: startColour, stopOpacity: 0.28 }}
-                />
-                <motion.stop
-                  offset="100%"
-                  style={{ stopColor: stopColour, stopOpacity: 0.28 }}
-                />
-              </linearGradient>
-            </defs>
-            <motion.circle
-              r="5"
-              fill="url(#moonGrad)"
-              mask="url(#moon)"
-              style={{
-                rotate: lunarRotation,
-              }}
-            />
-          </motion.svg>
-        </motion.div>
- */
