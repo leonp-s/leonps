@@ -154,7 +154,7 @@ const Nature = () => {
       <div className="sticky bottom-0 max-h-full -z-1" ref={animDivRef}>
         <canvas
           ref={forestCanvasRef}
-          style={{ display: "block", height: "40vh" }}
+          style={{ display: "block", height: "60vh" }}
           className="w-full"
         />
 

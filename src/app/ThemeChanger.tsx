@@ -25,7 +25,7 @@ const ThemeChanger = () => {
       <option value="system">System</option>
       <option value="dark">Dark</option>
       <option value="light">Light</option>
-      <option value="cupcake">Cupcake</option>
+      <option value="pastel">Pastel</option>
     </select>
   );
 };
