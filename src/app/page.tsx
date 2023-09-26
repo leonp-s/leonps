@@ -20,8 +20,10 @@ const Navbar = () => {
   const [transparentBackground, setTransparentBackground] = useState(true);
 
   const scrollVelocity = useVelocity(scrollYProgress);
-  const scaledScrollVelocity = useTransform(scrollVelocity, [-1, 1], [-10, 10]);
-  const smoothedScrollVelocity = useSpring(scaledScrollVelocity);
+  const scaledScrollVelocity = useTransform(scrollVelocity, [-1, 1], [-8, 8]);
+  const smoothedScrollVelocity = useSpring(scaledScrollVelocity, {
+    mass: 4,
+  });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) =>
     setTransparentBackground(scrollYProgress.get() < 0.06),
@@ -32,6 +34,7 @@ const Navbar = () => {
       {/*<ThemeChanger />*/}
       <motion.div
         className="tabs tabs-boxed p-2"
+        layout
         style={{ marginTop: smoothedScrollVelocity }}
         animate={{
           ...(transparentBackground && {
@@ -39,15 +42,18 @@ const Navbar = () => {
           }),
         }}
       >
-        <a className="tab mr-4">
+        <a className="tab tab-active md:mr-4">
           Work <kbd className="kbd kbd-sm rounded-md ml-1">/</kbd>
         </a>
-        <a className="tab mr-4">Projects</a>
-        <a className="tab mr-4">
+        <a className="tab md:mr-4">Projects</a>
+        <a className="tab md:mr-4">
           <BiLogoGithub />
         </a>
-        <a className="tab mr-4">
+        <a className="tab md:mr-4">
           <BiLogoLinkedin />
+        </a>
+        <a className="tab md:mr-4 hidden md:block">
+          <ThemeChanger />
         </a>
       </motion.div>
     </div>
@@ -58,7 +64,7 @@ const Home = () => {
     <main>
       <Nature />
       <Navbar />
-      <div className="bg-gray-900" style={{ height: "200vh" }} />
+      <div className="bg-gray-900" style={{ height: "400vh" }} />
     </main>
   );
 };

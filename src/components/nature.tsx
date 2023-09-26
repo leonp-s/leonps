@@ -1,11 +1,12 @@
 "use client";
 
-import Forest from "@/components/forest";
-import { useRef } from "react";
+import UseForest from "@/components/useForest";
+import React, { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import Stars from "@/components/stars";
+import useStars from "@/components/useStars";
 import { useElementSize } from "usehooks-ts";
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
+import useForest from "@/components/useForest";
 
 const Nature = () => {
   const natureRef = useRef(null);
@@ -47,6 +48,9 @@ const Nature = () => {
   );
 
   const yPosInv = useTransform(scrollYProgressSmooth, [0, 1], ["28%", "0%"]);
+
+  const { forestCanvasRef } = useForest("United Kingdom");
+  const { starsCanvasRef } = useStars();
 
   const backgroundGradient = (
     <div
@@ -148,13 +152,22 @@ const Nature = () => {
         {moon}
       </div>
       <div className="sticky bottom-0 max-h-full -z-1" ref={animDivRef}>
-        <Forest forestSeed="United Kingdom" width={width} height={400} />
-        <motion.div
-          className="absolute bottom-0"
-          style={{ opacity: moonOpacity, bottom: yPosInv }}
-        >
-          <Stars width={width} height={1000} />
-        </motion.div>
+        <canvas
+          ref={forestCanvasRef}
+          style={{ display: "block", height: "40vh" }}
+          className="w-full"
+        />
+
+        <motion.canvas
+          ref={starsCanvasRef}
+          style={{
+            display: "block",
+            height: "100vh",
+            opacity: moonOpacity,
+            bottom: yPosInv,
+          }}
+          className="w-full absolute bottom-0"
+        />
       </div>
     </div>
   );

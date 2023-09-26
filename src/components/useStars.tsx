@@ -1,24 +1,27 @@
 import React, { FC, useEffect, useRef } from "react";
 import { Tree } from "@/components/tree";
 import seedRandom from "seedrandom";
+import { useElementSize } from "usehooks-ts";
 
 function getRandom(seed: seedRandom.PRNG, min: number, max: number) {
   return Math.floor(seed() * (max - min + 1)) + min;
 }
 
-const Stars: FC<{ width: number; height: number }> = ({ width, height }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const useStars = () => {
+  const starsCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [setSizeRef, { width, height }] = useElementSize<HTMLCanvasElement>();
+
+  useEffect(() => {
+    setSizeRef(starsCanvasRef.current);
+  }, [setSizeRef, starsCanvasRef]);
 
   useEffect(() => {
     let cancelAnim: number;
     let timeout = setTimeout(() => {
-      const canvas = canvasRef.current!;
+      const canvas = starsCanvasRef.current!;
 
       canvas.width = width;
       canvas.height = height;
-
-      canvas.style.width = width.toString();
-      canvas.style.height = height.toString();
 
       let time = 0;
 
@@ -28,7 +31,7 @@ const Stars: FC<{ width: number; height: number }> = ({ width, height }) => {
         const context = canvas.getContext("2d")!;
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        const stars = 600;
+        const stars = 200;
         const colourRange = [0, 60, 240];
 
         for (let i = 0; i < stars; i++) {
@@ -59,7 +62,7 @@ const Stars: FC<{ width: number; height: number }> = ({ width, height }) => {
     };
   }, [width, height]);
 
-  return <canvas ref={canvasRef} style={{ display: "block" }} />;
+  return { starsCanvasRef };
 };
 
-export default Stars;
+export default useStars;

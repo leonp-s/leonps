@@ -4,24 +4,23 @@ import React, { useRef, useEffect, FC } from "react";
 import seedRandom from "seedrandom";
 
 import { Tree } from "@/components/tree";
+import { useElementSize } from "usehooks-ts";
 
-const Forest: FC<{ forestSeed: string; width: number; height: number }> = ({
-  forestSeed,
-  width,
-  height,
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const UseForest = (forestSeed: string) => {
+  const forestCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [setSizeRef, { width, height }] = useElementSize<HTMLCanvasElement>();
+
+  useEffect(() => {
+    setSizeRef(forestCanvasRef.current);
+  }, [setSizeRef, forestCanvasRef]);
 
   useEffect(() => {
     let cancelAnim: number;
     let timeout = setTimeout(() => {
-      const canvas = canvasRef.current!;
+      const canvas = forestCanvasRef.current!;
 
       canvas.width = width;
       canvas.height = height;
-
-      canvas.style.width = width.toString();
-      canvas.style.height = height.toString();
 
       let trees: Array<ReturnType<typeof Tree>> = [];
 
@@ -49,7 +48,7 @@ const Forest: FC<{ forestSeed: string; width: number; height: number }> = ({
       }
 
       const update = () => {
-        const canvas = canvasRef.current;
+        const canvas = forestCanvasRef.current;
 
         // JUST A TEMPORARY FIX
         if (canvas != null) {
@@ -76,7 +75,7 @@ const Forest: FC<{ forestSeed: string; width: number; height: number }> = ({
     };
   }, [width, height, forestSeed]);
 
-  return <canvas ref={canvasRef} style={{ display: "block" }} />;
+  return { forestCanvasRef };
 };
 
-export default Forest;
+export default UseForest;
