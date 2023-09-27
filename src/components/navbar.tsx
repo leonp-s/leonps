@@ -1,4 +1,4 @@
-import * as Tabs from "@radix-ui/react-tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   motion,
   useMotionValueEvent,
@@ -9,6 +9,9 @@ import {
 } from "framer-motion";
 import { useState } from "react";
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
+import { Button } from "@/components/ui/button";
+import ModeToggle from "@/components/mode-toggle";
+import { RemoveScroll } from "react-remove-scroll";
 
 const Navbar = () => {
   const { scrollYProgress } = useScroll({
@@ -27,39 +30,40 @@ const Navbar = () => {
   );
 
   return (
-    <div className="fixed w-full flex justify-center p-4 top-0">
-      <Tabs.Root defaultValue="work">
-        <Tabs.List
-          className="tabs tabs-boxed p-2"
-          aria-label="Manage your account"
-          asChild
-        >
+    <motion.nav
+      layout
+      className={`fixed w-full flex justify-center top-0 p-4`}
+      style={{
+        marginTop: smoothedScrollVelocity,
+      }}
+    >
+      <Tabs defaultValue="work" className={RemoveScroll.classNames.fullWidth}>
+        <TabsList aria-label="Manage your account" asChild>
           <motion.div
-            className="tabs tabs-boxed p-2"
             layout
-            style={{ marginTop: smoothedScrollVelocity }}
-            animate={{
-              ...(transparentBackground && {
-                backgroundColor: "rgba(255,255,255,0)",
-              }),
+            className={transparentBackground ? "bg-transparent" : ""}
+            style={{
+              transition: "background-color 0.4s ease",
             }}
           >
-            <Tabs.Trigger className="tab" value="work">
-              Work <kbd className="kbd kbd-sm rounded-md ml-1">/</kbd>
-            </Tabs.Trigger>
-            <Tabs.Trigger className="tab" value="projects">
-              Projects
-            </Tabs.Trigger>
-            <Tabs.Trigger className="tab" value="projects">
+            <TabsTrigger value="work">Work</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <Button variant="link" className="h-full">
               <BiLogoGithub />
-            </Tabs.Trigger>
-            <Tabs.Trigger className="tab" value="projects">
+            </Button>
+            <Button variant="link" className="h-full">
               <BiLogoLinkedin />
-            </Tabs.Trigger>
+            </Button>
           </motion.div>
-        </Tabs.List>
-      </Tabs.Root>
-    </div>
+        </TabsList>
+      </Tabs>
+      <div
+        className={`fixed right-0 bottom-0 ${RemoveScroll.classNames.fullWidth}`}
+        style={{ padding: "inherit" }}
+      >
+        <ModeToggle />
+      </div>
+    </motion.nav>
   );
 };
 

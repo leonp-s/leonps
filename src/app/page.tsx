@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <main>
       <Nature />
-      <Navbar />
       <div className="bg-gray-900" style={{ height: "400vh" }} />
+      <Navbar />
     </main>
   );
 };

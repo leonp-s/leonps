@@ -6,7 +6,12 @@ import { IconContext } from "react-icons";
 
 const Providers: FC<{ children?: ReactNode }> = ({ children }) => {
   return (
-    <ThemeProvider defaultTheme="cupcake">
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <IconContext.Provider value={{ className: "h-5 w-5" }}>
         {children}
       </IconContext.Provider>
