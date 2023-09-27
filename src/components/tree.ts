@@ -31,12 +31,7 @@ const trunkMin = 6;
 const trunkMax = 8;
 const maxBranches = 100;
 
-const Tree = (
-  canvas: HTMLCanvasElement,
-  seed: number,
-  x: number,
-  y: number,
-) => {
+const Tree = (seed: number) => {
   let treeDna: seedRandom.PRNG;
   let rootDna = seedRandom(seed.toString())();
 
@@ -44,7 +39,6 @@ const Tree = (
   let treeGrow = 0.01;
   let wind = 0;
 
-  // Recusive tree
   const drawBranch = (
     x: number,
     y: number,
@@ -104,7 +98,12 @@ const Tree = (
   };
 
   return {
-    draw: (context: CanvasRenderingContext2D) => {
+    draw: (
+      canvas: HTMLCanvasElement,
+      context: CanvasRenderingContext2D,
+      x: number,
+      y: number,
+    ) => {
       branchCount = 0;
       treeGrow += 0.02;
       wind += Math.PI * 0.01;

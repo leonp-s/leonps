@@ -1,35 +1,51 @@
 "use client";
 
-import React, { useRef, useEffect, FC } from "react";
+import React, { useRef, useEffect, FC, RefObject } from "react";
 import seedRandom from "seedrandom";
 
 import { Tree } from "@/components/tree";
 import { useElementSize } from "usehooks-ts";
 
-class Forest {}
+class Forest {
+  forestCanvasRef_: RefObject<HTMLCanvasElement>;
+  trees: Array<ReturnType<typeof Tree>> = [];
+  seedGen: seedRandom.PRNG;
+  cancelAnim?: number;
 
-const UseForest = (forestSeed: string) => {
-  const forestRef = useRef();
-  const forestCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [setSizeRef, { width, height }] = useElementSize<HTMLCanvasElement>();
+  constructor(
+    forestSeed: string,
+    forestCanvasRef: RefObject<HTMLCanvasElement>,
+  ) {
+    this.forestCanvasRef_ = forestCanvasRef;
+    this.seedGen = seedRandom(forestSeed);
 
-  useEffect(() => {
-    setSizeRef(forestCanvasRef.current);
-  }, [setSizeRef, forestCanvasRef]);
+    this.trees = [
+      Tree(this.seedGen()),
+      Tree(this.seedGen()),
+      Tree(this.seedGen()),
+      Tree(this.seedGen()),
+    ];
+  }
 
-  useEffect(() => {
-    let cancelAnim: number;
-    let timeout = setTimeout(() => {
-      const canvas = forestCanvasRef.current!;
+  simulate = () => {
+    this.cancelAnim = requestAnimationFrame(this.update);
+  };
 
+  updateDimensions = (width: number, height: number) => {
+    const canvas = this.forestCanvasRef_.current;
+    if (canvas != null) {
       canvas.width = width;
       canvas.height = height;
+    }
+  };
 
-      let trees: Array<ReturnType<typeof Tree>> = [];
+  update = () => {
+    const canvas = this.forestCanvasRef_.current;
+    if (canvas != null) {
+      const ctx = canvas.getContext("2d")!;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      let seedGen = seedRandom(forestSeed);
-
-      let treeCount =
+      let drawTreeCount =
         canvas.width > 1920
           ? 4
           : canvas.width > 1200
@@ -38,45 +54,47 @@ const UseForest = (forestSeed: string) => {
           ? 2
           : 1;
 
-      for (let i = 0; i < treeCount; i++) {
-        trees.push(
-          Tree(
-            canvas,
-            seedGen(),
-            (canvas.width / (treeCount + 1)) * i +
-              canvas.width / (treeCount + 1),
-            canvas.height,
-          ),
+      for (let treeIndex = 0; treeIndex < drawTreeCount; treeIndex++) {
+        this.trees[treeIndex].draw(
+          canvas,
+          ctx,
+          (canvas.width / (drawTreeCount + 1)) * treeIndex +
+            canvas.width / (drawTreeCount + 1),
+          canvas.height,
         );
       }
 
-      const update = () => {
-        const canvas = forestCanvasRef.current;
+      this.cancelAnim = requestAnimationFrame(this.update);
+    }
+  };
 
-        // JUST A TEMPORARY FIX
-        if (canvas != null) {
-          const ctx = canvas.getContext("2d")!;
+  end = () => {
+    if (this.cancelAnim) cancelAnimationFrame(this.cancelAnim);
+  };
+}
 
-          // Clear the canvas
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+const UseForest = (forestSeed: string) => {
+  const forestRef = useRef<Forest>();
+  const forestCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [setSizeRef, { width, height }] = useElementSize<HTMLCanvasElement>();
 
-          // Draw the tree
-          trees.forEach((tree) => {
-            tree.draw(ctx);
-          });
+  useEffect(() => {
+    setSizeRef(forestCanvasRef.current);
+  }, [setSizeRef, forestCanvasRef]);
 
-          cancelAnim = requestAnimationFrame(update);
-        }
-      };
-
-      cancelAnim = requestAnimationFrame(update);
-    }, 400);
+  useEffect(() => {
+    const forest = new Forest(forestSeed, forestCanvasRef);
+    forest.simulate();
+    forestRef.current = forest;
 
     return () => {
-      cancelAnimationFrame(cancelAnim);
-      clearTimeout(timeout);
+      forestRef.current?.end();
     };
-  }, [width, height, forestSeed]);
+  }, [forestSeed]);
+
+  useEffect(() => {
+    forestRef.current?.updateDimensions(width, height);
+  }, [width, height]);
 
   return { forestCanvasRef };
 };

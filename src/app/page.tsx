@@ -10,10 +10,10 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div style={{ height: "100dvh" }}>
+      <div className="w-full h-full">
         <Nature timeOfDay={theme == "light" ? 0 : 1} />
       </div>
-      <div className="bg-gray-900" style={{ height: "400dvh" }} />
+      <div className="bg-gray-900" style={{ height: "400vh" }} />
       <Navbar />
     </Fragment>
   );
