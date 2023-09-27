@@ -6,7 +6,10 @@ import seedRandom from "seedrandom";
 import { Tree } from "@/components/tree";
 import { useElementSize } from "usehooks-ts";
 
+class Forest {}
+
 const UseForest = (forestSeed: string) => {
+  const forestRef = useRef();
   const forestCanvasRef = useRef<HTMLCanvasElement>(null);
   const [setSizeRef, { width, height }] = useElementSize<HTMLCanvasElement>();
 

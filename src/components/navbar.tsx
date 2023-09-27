@@ -26,19 +26,19 @@ const Navbar = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) =>
-    setTransparentBackground(scrollYProgress.get() < 0.06),
+    setTransparentBackground(scrollYProgress.get() < 0.02),
   );
 
   return (
     <motion.nav
       layout
-      className={`fixed w-full flex justify-center top-0 p-4`}
+      className="fixed w-full flex justify-center top-0 p-4"
       style={{
         marginTop: smoothedScrollVelocity,
       }}
     >
       <Tabs defaultValue="work" className={RemoveScroll.classNames.fullWidth}>
-        <TabsList aria-label="Manage your account" asChild>
+        <TabsList aria-label="navigation" asChild>
           <motion.div
             layout
             className={transparentBackground ? "bg-transparent" : ""}
