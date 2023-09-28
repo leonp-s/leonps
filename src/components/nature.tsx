@@ -27,7 +27,7 @@ const approximatelyEqual = (v1: number, v2: number, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 
 const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
-  const timeOfDaySmooth = useMotionValue(0);
+  const timeOfDaySmooth = useMotionValue(timeOfDay);
 
   useAnimationFrame((time, delta) => {
     const currentValue = timeOfDaySmooth.get();

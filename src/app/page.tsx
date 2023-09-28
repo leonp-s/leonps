@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { Fragment } from "react";
 
 const Home = () => {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
 
   return (
     <Fragment>
