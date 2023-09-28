@@ -57,8 +57,8 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
       style={{
         rotate: "180deg",
         background:
-          "linear-gradient(-8deg, #fef3c7, #fefed8 8%, #f8e7e6 24%, #b4b0c6 32%, #4f4d64 50%, #433f53 60%, #1f2937 70%, #030712)",
-        backgroundSize: "100% 200%",
+          "linear-gradient(-8deg, #fef3c7, #fefed8 10%, #f8e7e6 25%, #b4b0c6 45%, #4f4d64 55%, #433f53 65%, #1f2937 82%, #030712)",
+        backgroundSize: "100% 300%",
         backgroundPositionY: backgroundYPos,
         zIndex: -1,
         top: 0,

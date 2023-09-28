@@ -13,7 +13,7 @@ const Hero = () => {
         <div className="max-w-xl text-center mx-auto">
           <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-gray-200">
             {"Hi. I'm "}
-            <span className="text-blue-400 dark:text-blue-300">Leon.</span>
+            <span className="text-orange-300 dark:text-blue-300">Leon.</span>
           </h1>
           <h2 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-gray-200 mt-2">
             {"> Audio Software Developer"}
@@ -23,7 +23,7 @@ const Hero = () => {
         <div className="mt-6 max-w-3xl text-center mx-auto">
           <p className="text-lg text-gray-800 dark:text-gray-300">
             Audio software developer with a strong technical background in
-            mathematics and audio engineering. Passionate musician/composer.
+            mathematics and audio engineering. Passionate musician and composer.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ const Hero = () => {
             href="#"
           >
             Explore some of my Projects
-            <span className="flex items-center gap-x-1 text-blue-600 dark:text-blue-500">
+            <span className="flex items-center gap-x-1 text-orange-300 dark:text-blue-300">
               <span className="border-l border-gray-200 pl-2">Explore</span>
               <BiChevronRight />
             </span>
