@@ -1,15 +1,13 @@
 "use client";
 
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import {
   motion,
   useAnimationFrame,
   useMotionValue,
-  useSpring,
   useTransform,
 } from "framer-motion";
 import useStars from "@/components/useStars";
-import { useElementSize } from "usehooks-ts";
 import useForest from "@/components/useForest";
 
 const smoothedValue = (
@@ -40,26 +38,14 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
     timeOfDaySmooth.set(smoothed);
   });
 
-  const [animDivRef, { width, height }] = useElementSize();
-
   const sunOpacity = useTransform(timeOfDaySmooth, [0, 0.4, 1], [0.6, 0, 0]);
-
   const moonOpacity = useTransform(timeOfDaySmooth, [0, 0.6, 1], [0, 0, 0.9]);
-
-  const scale = useTransform(timeOfDaySmooth, [0, 1], [10, 3]);
-  const lunarRotation = useTransform(timeOfDaySmooth, [0, 1], [-20, 200]);
 
   const xPos = useTransform(timeOfDaySmooth, [0, 1], ["0%", "80%"]);
   const xPosInv = useTransform(timeOfDaySmooth, [0, 1], ["80%", "0%"]);
-
-  const yPos = useTransform(
-    timeOfDaySmooth,
-    [0, 0.5, 1],
-    ["20%", "10%", "20%"],
-  );
+  const yPos = useTransform(timeOfDaySmooth, [0, 0.5, 1], ["20%", "4%", "20%"]);
 
   const backgroundYPos = useTransform(timeOfDaySmooth, [0, 1], ["100%", "0%"]);
-
   const yPosInv = useTransform(timeOfDaySmooth, [0, 1], ["28%", "0%"]);
 
   const { forestCanvasRef } = useForest("United Kingdom");
@@ -71,7 +57,7 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
       style={{
         rotate: "180deg",
         background:
-          "linear-gradient(-8deg, #fef3c7, #fefed8 5%, #f8e7e6 15%, #b4b0c6 30%, #4f4d64 50%, #433f53 60%, #1f2937 70%, #030712)",
+          "linear-gradient(-8deg, #fef3c7, #fefed8 8%, #f8e7e6 24%, #b4b0c6 32%, #4f4d64 50%, #433f53 60%, #1f2937 70%, #030712)",
         backgroundSize: "100% 200%",
         backgroundPositionY: backgroundYPos,
         zIndex: -1,
@@ -82,10 +68,8 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
 
   const sun = (
     <motion.div
-      layout
       className="w-full absolute"
       style={{
-        top: yPos,
         opacity: sunOpacity,
       }}
     >
@@ -101,21 +85,19 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
       >
         <defs>
           <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <motion.stop offset="0%" style={{ stopColor: "#f59e0b" }} />
-            <motion.stop offset="100%" style={{ stopColor: "#fefed8" }} />
+            <stop offset="0%" style={{ stopColor: "#f59e0b" }} />
+            <stop offset="100%" style={{ stopColor: "#fefed8" }} />
           </linearGradient>
         </defs>
-        <motion.circle r="5" fill="url(#sunGrad)" />
+        <circle r="5" fill="url(#sunGrad)" />
       </motion.svg>
     </motion.div>
   );
 
   const moon = (
     <motion.div
-      layout
       className="w-full absolute"
       style={{
-        top: yPos,
         opacity: moonOpacity,
       }}
     >
@@ -130,19 +112,19 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
         <defs>
           <mask id="moon">
             <rect fill="white" x="-5" y="-5" width="10" height="10"></rect>
-            <motion.circle fill="black" cx={scale} r="5" />
+            <circle fill="black" cx={3} r="5" />
           </mask>
           <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <motion.stop offset="0%" style={{ stopColor: "#111827" }} />
-            <motion.stop offset="100%" style={{ stopColor: "#1f2937" }} />
+            <stop offset="0%" style={{ stopColor: "#4b5364" }} />
+            <stop offset="100%" style={{ stopColor: "#1b3049" }} />
           </linearGradient>
         </defs>
-        <motion.circle
+        <circle
           r="5"
           fill="url(#moonGrad)"
           mask="url(#moon)"
           style={{
-            rotate: lunarRotation,
+            rotate: "200deg",
           }}
         />
       </motion.svg>
@@ -152,11 +134,27 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
   return (
     <div className="relative h-full">
       {backgroundGradient}
-      <div className="absolute w-full h-full overflow-hidden">
+      <motion.div
+        layout
+        style={{ opacity: sunOpacity }}
+        className="absolute top-0 w-full h-full bg-[url('/hero_blob_light.svg')] bg-no-repeat bg-contain bg-center"
+      />
+      <motion.div
+        layout
+        style={{ opacity: moonOpacity }}
+        className="absolute w-full h-full bg-[url('/hero_blob_dark.svg')] bg-no-repeat bg-contain bg-center"
+      />
+      <motion.div
+        layout
+        className="absolute w-full h-full overflow-hidden"
+        style={{
+          top: yPos,
+        }}
+      >
         {sun}
         {moon}
-      </div>
-      <div className="absolute h-full w-full -z-1" ref={animDivRef}>
+      </motion.div>
+      <div className="absolute h-full w-full -z-1">
         <canvas
           ref={forestCanvasRef}
           style={{ display: "block", height: "60%" }}

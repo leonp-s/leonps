@@ -41,7 +41,9 @@ const Navbar = () => {
         <TabsList aria-label="navigation" asChild>
           <motion.div
             layout
-            className={transparentBackground ? "bg-transparent" : ""}
+            className={`backdrop-blur-md ${
+              transparentBackground ? "bg-muted/0" : "bg-muted/60"
+            }`}
             style={{
               transition: "background-color 0.4s ease",
             }}
