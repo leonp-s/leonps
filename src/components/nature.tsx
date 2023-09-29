@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import useStars from "@/components/useStars";
 import useForest from "@/components/useForest";
+import theme from "tailwindcss/defaultTheme";
 
 const smoothedValue = (
   valueToSmooth: number,
@@ -71,6 +72,7 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
       className="w-full absolute"
       style={{
         opacity: sunOpacity,
+        top: yPos,
       }}
     >
       <motion.svg
@@ -99,6 +101,7 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
       className="w-full absolute"
       style={{
         opacity: moonOpacity,
+        top: yPos,
       }}
     >
       <motion.svg
@@ -144,17 +147,11 @@ const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
         style={{ opacity: moonOpacity }}
         className="absolute w-full h-full bg-[url('/hero_blob_dark.svg')] bg-no-repeat bg-contain bg-center"
       />
-      <motion.div
-        layout
-        className="absolute w-full h-full overflow-hidden"
-        style={{
-          top: yPos,
-        }}
-      >
+      <div className="absolute w-full h-full overflow-hidden">
         {sun}
         {moon}
-      </motion.div>
-      <div className="absolute h-full w-full -z-1">
+      </div>
+      <div className="absolute h-full w-full">
         <canvas
           ref={forestCanvasRef}
           style={{ display: "block", height: "60%" }}
