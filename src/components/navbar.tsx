@@ -60,7 +60,7 @@ const Navbar = () => {
         </TabsList>
       </Tabs>
       <div
-        className={`fixed right-0 bottom-0 ${RemoveScroll.classNames.fullWidth}`}
+        className={`fixed right-0 bottom-0 md:top-0 ${RemoveScroll.classNames.fullWidth}`}
         style={{ padding: "inherit" }}
       >
         <ModeToggle />

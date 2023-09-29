@@ -62,7 +62,17 @@ class Stars {
       const context = canvas.getContext("2d")!;
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (const star of this.stars) {
+      let drawStarCount =
+        canvas.width > 1920
+          ? Stars.starCount
+          : canvas.width > 1200
+          ? Stars.starCount / 2
+          : canvas.width > 600
+          ? Stars.starCount / 3
+          : Stars.starCount / 4;
+
+      for (let starIndex = 0; starIndex < drawStarCount; ++starIndex) {
+        let star = this.stars[starIndex];
         let x =
           star.xOrigin * canvas.offsetWidth +
           Math.sin(0.5 * this.time + star.offset) * 100;

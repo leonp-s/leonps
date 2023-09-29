@@ -5,6 +5,8 @@ import Navbar from "@/components/navbar";
 import { useTheme } from "next-themes";
 import { Fragment } from "react";
 import { BiChevronRight } from "react-icons/bi";
+import Projects from "@/components/projects";
+import Footer from "@/components/footer";
 
 const Hero = () => {
   return (
@@ -16,7 +18,7 @@ const Hero = () => {
             <span className="text-orange-300 dark:text-blue-300">Leon.</span>
           </h1>
           <h2 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-gray-200 mt-2">
-            {"> Audio Software Developer"}
+            {"~ Audio Software Developer"}
           </h2>
         </div>
 
@@ -55,8 +57,9 @@ const Home = () => {
           <Hero />
         </div>
       </div>
-      <div style={{ height: "400vh" }} />
+      <Projects />
       <Navbar />
+      <Footer />
     </Fragment>
   );
 };
