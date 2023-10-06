@@ -1,12 +1,10 @@
 "use client";
 
 import Nature from "@/components/nature";
-import Navbar from "@/components/navbar";
 import { useTheme } from "next-themes";
 import { Fragment } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import Projects from "@/components/projects";
-import Footer from "@/components/footer";
 
 const Hero = () => {
   return (
@@ -58,8 +56,6 @@ const Home = () => {
         </div>
       </div>
       <Projects />
-      <Navbar />
-      <Footer />
     </Fragment>
   );
 };

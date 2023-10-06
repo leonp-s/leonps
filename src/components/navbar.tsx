@@ -9,11 +9,13 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "@/components/mode-toggle";
 import { RemoveScroll } from "react-remove-scroll";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const { scrollYProgress } = useScroll({
@@ -31,18 +33,18 @@ const Navbar = () => {
     setTransparentBackground(scrollYProgress.get() < 0.02),
   );
 
+  const pathname = usePathname();
+
   return (
     <motion.nav
-      layout
       className="fixed w-full flex justify-center top-0 p-4"
       style={{
         marginTop: smoothedScrollVelocity,
       }}
     >
-      <Tabs defaultValue="work" className={RemoveScroll.classNames.fullWidth}>
+      <Tabs value={pathname} className={RemoveScroll.classNames.fullWidth}>
         <TabsList aria-label="navigation" asChild>
           <motion.div
-            layout
             className={`backdrop-blur-md ${
               transparentBackground ? "bg-muted/0" : "bg-muted/60"
             }`}
@@ -50,13 +52,27 @@ const Navbar = () => {
               transition: "background-color 0.4s ease",
             }}
           >
-            <TabsTrigger value="work">Work</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <Button variant="link" className="h-full">
-              <BiLogoGithub />
+            <TabsTrigger value="/" asChild>
+              <Link href="/">Home</Link>
+            </TabsTrigger>
+            {/*<TabsTrigger value="/about" asChild>*/}
+            {/*  <Link href="/about">About</Link>*/}
+            {/*</TabsTrigger>*/}
+            {/*<TabsTrigger value="/projects" asChild>*/}
+            {/*  <Link href="/projects">Projects</Link>*/}
+            {/*</TabsTrigger>*/}
+            <Button variant="link" className="h-full" asChild>
+              <Link href="mailto:work@leonps.com">Contact</Link>
             </Button>
-            <Button variant="link" className="h-full">
-              <BiLogoLinkedin />
+            <Button variant="link" className="h-full" asChild>
+              <Link href="https://github.com/leonp-s" target="_blank">
+                <BiLogoGithub />
+              </Link>
+            </Button>
+            <Button variant="link" className="h-full" asChild>
+              <Link href="https://www.linkedin.com/in/leonp-s/" target="_blank">
+                <BiLogoLinkedin />
+              </Link>
             </Button>
           </motion.div>
         </TabsList>
