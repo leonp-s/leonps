@@ -1,6 +1,62 @@
 {
   "components": [
     {
+      "name": "card",
+      "display_name": null,
+      "created_at": "2023-11-07T16:38:18.790Z",
+      "updated_at": "2023-11-07T16:51:23.607Z",
+      "id": 4849706,
+      "schema": {
+        "variant": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "_uid": "41b377cf-b147-498e-a21c-de5f5e7da111",
+              "name": "Overlay",
+              "value": "overlay"
+            },
+            {
+              "_uid": "e6aa20a5-af34-44ec-8c59-157a240661e7",
+              "value": "separated",
+              "name": "Separated"
+            }
+          ],
+          "required": true
+        },
+        "title": {
+          "type": "text",
+          "required": true
+        },
+        "info": {
+          "type": "richtext",
+          "required": true
+        },
+        "url": {
+          "type": "multilink",
+          "required": true
+        },
+        "image": {
+          "type": "asset",
+          "required": true,
+          "filetypes": [
+            "images"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "card",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
       "name": "column",
       "display_name": null,
       "created_at": "2023-11-07T12:57:08.102Z",
@@ -27,11 +83,83 @@
       "name": "container",
       "display_name": null,
       "created_at": "2023-11-06T16:02:37.189Z",
-      "updated_at": "2023-11-07T13:34:39.597Z",
+      "updated_at": "2023-11-07T17:02:28.033Z",
       "id": 4843094,
       "schema": {
         "body": {
           "type": "bloks"
+        },
+        "max_width": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "_uid": "bb7d58e7-0a0d-441a-b457-0fd25b37cab1",
+              "value": "max-w-3xl",
+              "name": "3XL"
+            },
+            {
+              "_uid": "c532ac4a-f12f-46c2-971c-c759abf2c69e",
+              "name": "2XL",
+              "value": "max-w-2xl"
+            },
+            {
+              "_uid": "7297213b-3b5a-4cd4-a1d2-18b8bf18970c",
+              "value": "max-w-xl",
+              "name": "XL"
+            },
+            {
+              "_uid": "d95059e7-1ef2-4503-91c7-04df7f781bdd",
+              "value": "max-w-lg",
+              "name": "LG"
+            },
+            {
+              "_uid": "4604fa8f-2560-47ea-89cd-f0af84a5a795",
+              "value": "max-w-md",
+              "name": "MD"
+            },
+            {
+              "_uid": "87a2feb4-689f-48b3-9def-c639a50179ca",
+              "value": "max-w-sm",
+              "name": "SM"
+            },
+            {
+              "_uid": "8f252183-74a7-4698-9f98-7aa6b7e1ec03",
+              "value": "max-w-xs",
+              "name": "XS"
+            },
+            {
+              "_uid": "3aaf8f51-7336-441e-9ffb-3f0a45c54284",
+              "value": "max-w-none",
+              "name": "NONE"
+            },
+            {
+              "_uid": "140a6d8d-ad93-4eb0-94ed-cbc4eb5a80ad",
+              "value": "max-w-4xl",
+              "name": "4XL"
+            },
+            {
+              "_uid": "0561be50-a738-48f2-b061-15f9804a7d82",
+              "value": "max-w-5xl",
+              "name": "5XL"
+            },
+            {
+              "_uid": "1a1366b1-bdef-4b98-a5f8-3dd035559093",
+              "value": "max-w-6xl",
+              "name": "6XL"
+            },
+            {
+              "_uid": "f7eae2d4-7f4b-406a-bd23-55a5a49ec6df",
+              "value": "max-w-7xl",
+              "name": "7XL"
+            },
+            {
+              "_uid": "23c1c58e-610a-4aa3-8a19-1d71771768ff",
+              "value": "max-w-full",
+              "name": "FULL"
+            }
+          ],
+          "required": true
         }
       },
       "image": null,

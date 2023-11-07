@@ -9,6 +9,7 @@ import Text from "@/components/bloks/text";
 import Container from "@/components/bloks/container";
 import Column from "@/components/bloks/column";
 import Figure from "@/components/bloks/figure";
+import Card from "@/components/bloks/card";
 
 storyblokInit({
   accessToken: process.env.STORYBLOK_TOKEN,
@@ -21,6 +22,7 @@ storyblokInit({
     container: Container,
     column: Column,
     figure: Figure,
+    card: Card,
   },
 });
 

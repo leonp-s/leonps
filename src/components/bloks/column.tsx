@@ -7,7 +7,7 @@ const Column: FC<{ blok: ColumnStoryblok }> = ({ blok }) => {
 
   return (
     <div
-      className={`grid grid-cols-1 mx-auto lg:grid-cols-${numBloks} gap-6 items-center`}
+      className={`grid grid-cols-1 mx-auto lg:grid-cols-${numBloks} gap-6 items-center w-full`}
       {...storyblokEditable(blok)}
     >
       {blok.body &&
