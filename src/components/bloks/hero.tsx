@@ -1,11 +1,12 @@
 import Nature from "@/components/nature";
 import { BiChevronRight } from "react-icons/bi";
 import { FC } from "react";
-import { HeroStoryblok, PageStoryblok } from "@/component-types-sb";
+import { HeroStoryblok, RichtextStoryblok } from "@/component-types-sb";
 import { storyblokEditable } from "@storyblok/react/rsc";
+import RichTextRenderer from "@/components/RichTextRenderer";
 
 const HeroCTA: FC<{
-  info: string;
+  info: RichtextStoryblok;
   tagline: string;
   introduction: string;
   cta: string;
@@ -23,8 +24,8 @@ const HeroCTA: FC<{
           </h2>
         </div>
 
-        <div className="mt-6 max-w-3xl text-center mx-auto">
-          <p className="text-lg text-gray-800 dark:text-gray-300">{info}</p>
+        <div className="mt-6 max-w-3xl text-center mx-auto text-lg text-gray-800 dark:text-gray-300">
+          <RichTextRenderer text={info} />
         </div>
 
         <div className="flex justify-center mt-5">
