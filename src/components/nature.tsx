@@ -26,9 +26,11 @@ const approximatelyEqual = (v1: number, v2: number, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 
 const Nature = () => {
-  const { theme } = useTheme();
-  const timeOfDay = theme == "light" ? 0.0 : 1.0;
+  const { resolvedTheme } = useTheme();
+  const timeOfDay = resolvedTheme == "light" ? 0.0 : 1.0;
   const timeOfDaySmooth = useMotionValue(timeOfDay);
+
+  console.log(resolvedTheme)
 
   useAnimationFrame((time, delta) => {
     const currentValue = timeOfDaySmooth.get();

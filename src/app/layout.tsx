@@ -11,12 +11,8 @@ import Hero from "@/components/bloks/hero";
 import StoryblokProvider from "@/components/StoryblokProvider";
 
 storyblokInit({
-  accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
-  use: [apiPlugin],
-  components: {
-    page: Page,
-    hero: Hero,
-  },
+  accessToken: process.env.STORYBLOK_TOKEN,
+  use: [apiPlugin]
 });
 
 const inter = Inter({ subsets: ["latin"] });
