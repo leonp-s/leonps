@@ -1,7 +1,4 @@
-"use client";
-
 import Nature from "@/components/nature";
-import { useTheme } from "next-themes";
 import { Fragment } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import Projects from "@/components/projects";
@@ -45,12 +42,10 @@ const Hero = () => {
 };
 
 const Home = () => {
-  const { theme, systemTheme } = useTheme();
-
   return (
     <Fragment>
       <div className="w-full h-full">
-        <Nature timeOfDay={theme == "light" ? 0 : 1} />
+        <Nature />
         <div className="absolute flex top-[4%] w-full h-full justify-center">
           <Hero />
         </div>

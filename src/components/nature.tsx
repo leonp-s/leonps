@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import useStars from "@/components/useStars";
 import useForest from "@/components/useForest";
-import theme from "tailwindcss/defaultTheme";
+import { useTheme } from "next-themes";
 
 const smoothedValue = (
   valueToSmooth: number,
@@ -25,7 +25,9 @@ const smoothingTime = 0.8;
 const approximatelyEqual = (v1: number, v2: number, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 
-const Nature: FC<{ timeOfDay: number }> = ({ timeOfDay }) => {
+const Nature: FC<{ timeOfDay: number }> = () => {
+  const { resolvedTheme } = useTheme();
+  const timeOfDay = resolvedTheme == "light" ? 0.0 : 1.0;
   const timeOfDaySmooth = useMotionValue(timeOfDay);
 
   useAnimationFrame((time, delta) => {
