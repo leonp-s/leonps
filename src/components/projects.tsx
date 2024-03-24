@@ -62,7 +62,14 @@ const SeperatedCard: FC<{
 
 const Projects = () => {
   return (
-    <div className="container py-10">
+    <div className="container py-10 relative">
+      <div
+        id="projects"
+        style={{
+          position: "absolute",
+          top: "-40px",
+        }}
+      />
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
         <h2 className="font-bold md:text-4xl md:leading-tight dark:text-white">
           Insights

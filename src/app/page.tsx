@@ -27,7 +27,7 @@ const Hero = () => {
         <div className="flex justify-center mt-5">
           <a
             className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600 dark:text-gray-400"
-            href="#"
+            href="#projects"
           >
             Explore some of my Projects
             <span className="flex items-center gap-x-1 text-orange-300 dark:text-blue-300">
