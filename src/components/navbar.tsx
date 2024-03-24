@@ -9,10 +9,10 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
 import { Button } from "@/components/ui/button";
-import ModeToggle from "@/components/mode-toggle";
+import ModeToggle from "@/components/modeToggle";
 import { RemoveScroll } from "react-remove-scroll";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
