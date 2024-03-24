@@ -59,7 +59,7 @@ const Zones = () => {
         </p>
 
         <p className="text-lg text-gray-800 dark:text-gray-200">
-          That's why we are excited to share that we now have a{" "}
+          {"That's why we are excited to share that we now have a "}
           <a
             className="text-blue-600 decoration-2 hover:underline font-medium"
             href="#"
@@ -140,18 +140,18 @@ const Zones = () => {
           <li className="pl-2">
             Preline allows us to collaborate in real time and is a really great
             way for leadership on the team to stay up-to-date with what
-            everybody is working on,"{" "}
+            everybody is working on{" "}
             <a
               className="text-blue-600 decoration-2 hover:underline font-medium"
               href="#"
             >
               said
             </a>{" "}
-            Stewart Scott-Curran, Intercom's Director of Brand Design.
+            Stewart Scott-Curran, Intercoms Director of Brand Design.
           </li>
           <li className="pl-2">
-            Preline opened a new way of sharing. It's a persistent way for
-            everyone to see and absorb each other's work," said David Scott,
+            Preline opened a new way of sharing. Its a persistent way for
+            everyone to see and absorb each others work, said David Scott,
             Creative Director at{" "}
             <a
               className="text-blue-600 decoration-2 hover:underline font-medium"
@@ -166,7 +166,7 @@ const Zones = () => {
         <p className="text-lg text-gray-800 dark:text-gray-200">
           Small teams and individual designers need a space where they can watch
           the design process unfold, both for themselves and for the people they
-          work with – no matter if it's a fellow designer, product manager,
+          work with – no matter if its a fellow designer, product manager,
           developer or client. Preline allows you to invite more people into the
           process, creating a central place for conversation around design. As
           those teams grow, transparency and collaboration becomes integrated in
