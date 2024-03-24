@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React from "react";
 import {
   motion,
   useAnimationFrame,
@@ -28,6 +28,7 @@ const approximatelyEqual = (v1: number, v2: number, epsilon = 0.001) =>
 const Nature = () => {
   const { resolvedTheme } = useTheme();
   const timeOfDay = resolvedTheme == "light" ? 0.0 : 1.0;
+
   const timeOfDaySmooth = useMotionValue(timeOfDay);
 
   useAnimationFrame((time, delta) => {
