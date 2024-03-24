@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { Fragment } from "react";
+import dynamic from "next/dynamic";
+
 import {
   motion,
   useAnimationFrame,
@@ -25,7 +27,38 @@ const smoothingTime = 0.8;
 const approximatelyEqual = (v1: number, v2: number, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 
-const Nature = () => {
+const backgroundStyle = {
+  rotate: "180deg",
+  background:
+    "linear-gradient(-8deg, #fef3c7, #fefed8 10%, #f8e7e6 25%, #b4b0c6 45%, #4f4d64 55%, #433f53 65%, #1f2937 82%, #030712)",
+  backgroundSize: "100% 300%",
+  zIndex: -1,
+  top: 0,
+};
+
+const fixedBackground = (
+  <Fragment>
+    <motion.div
+      className="absolute w-full h-full dark:hidden"
+      style={{
+        ...backgroundStyle,
+        backgroundPositionY: "100%",
+      }}
+    />
+    <motion.div
+      className="absolute w-full h-full hidden dark:block"
+      style={{
+        ...backgroundStyle,
+        backgroundPositionY: "0%",
+      }}
+    />
+  </Fragment>
+);
+
+const withNoSSR = (Component: React.FunctionComponent) =>
+  dynamic(() => Promise.resolve(Component), { ssr: false });
+
+const NatureDynamic = withNoSSR(() => {
   const { resolvedTheme } = useTheme();
   const timeOfDay = resolvedTheme == "light" ? 0.0 : 1.0;
 
@@ -59,13 +92,8 @@ const Nature = () => {
     <motion.div
       className="absolute w-full h-full"
       style={{
-        rotate: "180deg",
-        background:
-          "linear-gradient(-8deg, #fef3c7, #fefed8 10%, #f8e7e6 25%, #b4b0c6 45%, #4f4d64 55%, #433f53 65%, #1f2937 82%, #030712)",
-        backgroundSize: "100% 300%",
+        ...backgroundStyle,
         backgroundPositionY: backgroundYPos,
-        zIndex: -1,
-        top: 0,
       }}
     />
   );
@@ -138,7 +166,7 @@ const Nature = () => {
   );
 
   return (
-    <div className="relative h-full">
+    <Fragment>
       {backgroundGradient}
       <motion.div
         layout
@@ -171,6 +199,15 @@ const Nature = () => {
           className="absolute w-full h-full"
         />
       </div>
+    </Fragment>
+  );
+});
+
+const Nature = () => {
+  return (
+    <div className="relative h-full">
+      {fixedBackground}
+      <NatureDynamic />
     </div>
   );
 };
