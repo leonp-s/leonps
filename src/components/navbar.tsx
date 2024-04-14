@@ -23,12 +23,6 @@ const Navbar = () => {
   });
   const [transparentBackground, setTransparentBackground] = useState(true);
 
-  const scrollVelocity = useVelocity(scrollYProgress);
-  const scaledScrollVelocity = useTransform(scrollVelocity, [-1, 1], [-6, 6]);
-  const smoothedScrollVelocity = useSpring(scaledScrollVelocity, {
-    mass: 4,
-  });
-
   useMotionValueEvent(scrollYProgress, "change", (latest) =>
     setTransparentBackground(scrollYProgress.get() < 0.02),
   );
@@ -36,12 +30,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <motion.nav
-      className="fixed w-full flex justify-center top-0 p-4"
-      style={{
-        marginTop: smoothedScrollVelocity,
-      }}
-    >
+    <motion.nav className="fixed w-full flex justify-center top-0 p-4">
       <Tabs value={pathname} className={RemoveScroll.classNames.fullWidth}>
         <TabsList aria-label="navigation" asChild>
           <motion.div
