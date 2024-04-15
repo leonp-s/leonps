@@ -72,27 +72,28 @@ const Projects = () => {
       />
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
         <h2 className="font-bold md:text-4xl md:leading-tight dark:text-white">
-          Insights
+          Projects
         </h2>
         <p className="mt-1 text-gray-600 dark:text-gray-400">
-          Stay in the know with insights from industry experts.
+          Here are a few of the projects I have been pursuing recently. Please
+          take a look around!
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <SeperatedCard
-          title="Zones"
-          description="Access and convolve a rapidly growing community driven library of impulse responses online or directly from your DAW."
+          title="Zones Convolution"
+          description="Access and convolve a rapidly growing community driven library of impulse responses online or directly from your DAW. Plugin client in JUCE (C++), backend and web client built using NextJS, Lambda, S3, terraform and Algolia."
           imageUrl="/projects/zones/zones_client_browser.png"
           imageAlt="Image Description"
           href="/projects/zones"
         />
         <SeperatedCard
-          title="Redshift"
-          description="Optimize your in-person experience with best-in-class capabilities like badge printing and lead retrieval"
-          imageUrl="https://images.unsplash.com/photo-1542125387-c71274d94f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          imageAlt="Image Description"
-          href="/projects/redshift"
+          title="BeanstormOS"
+          description="Espresso machine conversion incorperating pressure and temperature control via a native IOS app over BLE. Realtime control in C++, native IOS app in Swift/SwiftUI."
+          imageUrl="/projects/beanstorm/beanstorm_portfolio_banner.png"
+          imageAlt="BeanstormOS Project Banner"
+          href="#"
         />
         <ImageBackgroundCard
           title="Preline"
@@ -103,19 +104,18 @@ const Projects = () => {
           href="#"
         />
         <SeperatedCard
-          title="Studio by Preline"
-          description="Produce professional, reliable streams easily leveraging Preline's innovative broadcast studio"
-          imageUrl="https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80"
-          imageAlt="Image Description"
+          title="Orbital Delay"
+          description="Orbital delay designer built in JUCE (C++). This makes designing delays fast and intuitive, simply drag and drop taps into an orbital pattern."
+          imageUrl="/projects/orbital_delay/orbital_delay_banner.png"
+          imageAlt="Orbital Delay Project Banner"
           href="#"
         />
-        <ImageBackgroundCard
-          title="Preline"
-          description="Press publishes books about
-          economic and technological advancement."
-          imageUrl="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3000&q=80"
-          imageAlt="Image Description"
-          href="#"
+        <SeperatedCard
+          title="Redshift"
+          description="Lightning fast arena shooter built in Unity."
+          imageUrl="/projects/redshift/redshift_banner.png"
+          imageAlt="RedshiftFPS Banner"
+          href="/projects/redshift"
         />
         <SeperatedCard
           title="Onsite"
