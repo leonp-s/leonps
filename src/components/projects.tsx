@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { BiChevronRight } from "react-icons/bi";
+import Image from "next/image";
 
 const ImageBackgroundCard: FC<{
   title: string;
@@ -7,21 +8,28 @@ const ImageBackgroundCard: FC<{
   imageUrl: string;
   imageAlt: string;
   href: string;
-}> = ({ imageAlt, imageUrl, title, description, href }) => {
+  cta: string;
+}> = ({ imageAlt, imageUrl, title, description, href, cta }) => {
   return (
     <a
-      className={`group relative flex flex-col w-full min-h-[30rem] bg-center bg-cover rounded-xl hover:shadow-lg transition`}
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className={`group relative flex flex-col w-full min-h-[30rem] bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden`}
       href={href}
     >
-      <div className="flex-auto p-4 md:p-6">
+      <Image
+        className="w-full h-full absolute top-0 left-0 z-0"
+        layout="fill"
+        objectFit="cover"
+        src={imageUrl}
+        alt={imageAlt}
+      />
+      <div className="flex-auto p-4 md:p-6 z-10">
         <h3 className="text-xl text-white/[.9] group-hover:text-white">
           <span className="font-bold">{title}</span> {description}
         </h3>
       </div>
-      <div className="pt-0 p-4 md:p-6">
+      <div className="pt-0 p-4 md:p-6 z-10">
         <div className="inline-flex items-center gap-2 text-sm font-medium text-white group-hover:text-white/[.7]">
-          Visit the site
+          {cta}
           <BiChevronRight />
         </div>
       </div>
@@ -39,8 +47,9 @@ const SeperatedCard: FC<{
   return (
     <a className="group rounded-xl overflow-hidden" href={href}>
       <div className="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden will-change-transform">
-        <img
+        <Image
           className="w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+          layout="fill"
           src={imageUrl}
           alt={imageAlt}
         />
@@ -101,6 +110,7 @@ const Projects = () => {
           imageUrl="/projects/sinemind/sinemind_banner.png"
           imageAlt="SineMind Banner"
           href="https://sinemind.com"
+          cta="Visit the site"
         />
         <ImageBackgroundCard
           title="Redshift"
@@ -108,6 +118,7 @@ const Projects = () => {
           imageUrl="/projects/redshift/redshift_banner.png"
           imageAlt="RedshiftFPS Banner"
           href="/projects/redshift"
+          cta="Read more"
         />
         <SeperatedCard
           title="Orbital Delay"
