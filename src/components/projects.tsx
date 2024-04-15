@@ -10,7 +10,7 @@ const ImageBackgroundCard: FC<{
 }> = ({ imageAlt, imageUrl, title, description, href }) => {
   return (
     <a
-      className={`group relative flex flex-col w-full min-h-[15rem] bg-center bg-cover rounded-xl hover:shadow-lg transition`}
+      className={`group relative flex flex-col w-full min-h-[30rem] bg-center bg-cover rounded-xl hover:shadow-lg transition`}
       style={{ backgroundImage: `url(${imageUrl})` }}
       href={href}
     >
@@ -75,8 +75,8 @@ const Projects = () => {
           Projects
         </h2>
         <p className="mt-1 text-gray-600 dark:text-gray-400">
-          Here are a few of the projects I have been pursuing recently. Please
-          take a look around!
+          Here are a few of the hobby projects I have been pursuing recently.
+          Please take a look around!
         </p>
       </div>
 
@@ -96,12 +96,18 @@ const Projects = () => {
           href="#"
         />
         <ImageBackgroundCard
-          title="Preline"
-          description="Press publishes books about
-          economic and technological advancement."
-          imageUrl="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3000&q=80"
-          imageAlt="Image Description"
-          href="#"
+          title="Sinemind"
+          description="Co-founded plugin development company now collaborating with an artist to create a new range of Slushwave plugins."
+          imageUrl="/projects/sinemind/sinemind_banner.png"
+          imageAlt="SineMind Banner"
+          href="https://sinemind.com"
+        />
+        <ImageBackgroundCard
+          title="Redshift"
+          description="Lightning fast arena shooter built in Unity (C#) with a custom Photon server backend."
+          imageUrl="/projects/redshift/redshift_banner.png"
+          imageAlt="RedshiftFPS Banner"
+          href="/projects/redshift"
         />
         <SeperatedCard
           title="Orbital Delay"
@@ -111,17 +117,10 @@ const Projects = () => {
           href="#"
         />
         <SeperatedCard
-          title="Redshift"
-          description="Lightning fast arena shooter built in Unity."
-          imageUrl="/projects/redshift/redshift_banner.png"
-          imageAlt="RedshiftFPS Banner"
-          href="/projects/redshift"
-        />
-        <SeperatedCard
-          title="Onsite"
-          description="Optimize your in-person experience with best-in-class capabilities like badge printing and lead retrieval"
-          imageUrl="https://images.unsplash.com/photo-1542125387-c71274d94f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-          imageAlt="Image Description"
+          title="Note Flow"
+          description="Logic X arpeggiator clone built using JUCE (C++) as part of a Uni project."
+          imageUrl="/projects/note_flow/note_flow_banner.png"
+          imageAlt="Note Flow Banner"
           href="#"
         />
       </div>
