@@ -9,11 +9,13 @@ const ImageBackgroundCard: FC<{
   imageAlt: string;
   href: string;
   cta: string;
-}> = ({ imageAlt, imageUrl, title, description, href, cta }) => {
+  openInNewTab: boolean;
+}> = ({ imageAlt, imageUrl, title, description, href, cta, openInNewTab }) => {
   return (
     <a
       className={`group relative flex flex-col w-full min-h-[30rem] bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden`}
       href={href}
+      target={openInNewTab ? "_blank" : ""}
     >
       <Image
         className="w-full h-full absolute top-0 left-0 z-0"
@@ -22,8 +24,9 @@ const ImageBackgroundCard: FC<{
         fill
         sizes="100vw"
         style={{
-          objectFit: "cover"
-        }} />
+          objectFit: "cover",
+        }}
+      />
       <div className="flex-auto p-4 md:p-6 z-10">
         <h3 className="text-xl text-white/[.9] group-hover:text-white">
           <span className="font-bold">{title}</span> {description}
@@ -54,7 +57,8 @@ const SeperatedCard: FC<{
           src={imageUrl}
           alt={imageAlt}
           fill
-          sizes="100vw" />
+          sizes="100vw"
+        />
       </div>
 
       <div className="mt-7">
@@ -104,7 +108,7 @@ const Projects = () => {
           description="Espresso machine conversion incorperating pressure and temperature control via a native IOS app over BLE. Realtime control in C++, native IOS app in Swift/SwiftUI."
           imageUrl="/projects/beanstorm/beanstorm_portfolio_banner.png"
           imageAlt="BeanstormOS Project Banner"
-          href="#"
+          href="/projects/beanstorm"
         />
         <ImageBackgroundCard
           title="Sinemind"
@@ -113,28 +117,30 @@ const Projects = () => {
           imageAlt="SineMind Banner"
           href="https://sinemind.com"
           cta="Visit the site"
+          openInNewTab={true}
         />
         <ImageBackgroundCard
           title="Redshift"
-          description="Lightning fast arena shooter built in Unity (C#) with a custom Photon server backend."
+          description="Lightning fast arena shooter built in Unity (C#)."
           imageUrl="/projects/redshift/redshift_banner.png"
           imageAlt="RedshiftFPS Banner"
           href="/projects/redshift"
           cta="Read more"
+          openInNewTab={false}
         />
         <SeperatedCard
           title="Orbital Delay"
           description="Orbital delay designer built in JUCE (C++). This makes designing delays fast and intuitive, simply drag and drop taps into an orbital pattern."
           imageUrl="/projects/orbital_delay/orbital_delay_banner.png"
           imageAlt="Orbital Delay Project Banner"
-          href="#"
+          href="/projects/orbital-delay"
         />
         <SeperatedCard
-          title="Note Flow"
-          description="Logic X arpeggiator clone built using JUCE (C++) as part of a Uni project."
+          title="Noteflow"
+          description="Logic X MIDI arpeggiator effect clone built using JUCE (C++) as part of a Uni project."
           imageUrl="/projects/note_flow/note_flow_banner.png"
-          imageAlt="Note Flow Banner"
-          href="#"
+          imageAlt="Noteflow Banner"
+          href="/projects/noteflow"
         />
       </div>
     </div>
