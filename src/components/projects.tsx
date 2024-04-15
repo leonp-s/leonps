@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { BiChevronRight } from "react-icons/bi";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const ImageBackgroundCard: FC<{
   title: string;
