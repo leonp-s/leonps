@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { BiChevronRight } from "react-icons/bi";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 const ImageBackgroundCard: FC<{
   title: string;
@@ -17,11 +17,13 @@ const ImageBackgroundCard: FC<{
     >
       <Image
         className="w-full h-full absolute top-0 left-0 z-0"
-        layout="fill"
-        objectFit="cover"
         src={imageUrl}
         alt={imageAlt}
-      />
+        fill
+        sizes="100vw"
+        style={{
+          objectFit: "cover"
+        }} />
       <div className="flex-auto p-4 md:p-6 z-10">
         <h3 className="text-xl text-white/[.9] group-hover:text-white">
           <span className="font-bold">{title}</span> {description}
@@ -49,10 +51,10 @@ const SeperatedCard: FC<{
       <div className="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden will-change-transform">
         <Image
           className="w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-          layout="fill"
           src={imageUrl}
           alt={imageAlt}
-        />
+          fill
+          sizes="100vw" />
       </div>
 
       <div className="mt-7">

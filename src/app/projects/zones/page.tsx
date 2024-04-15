@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 const Zones = () => {
   return (
@@ -46,7 +46,10 @@ const Zones = () => {
             width="1920"
             height="1080"
             className="w-full object-cover rounded-xl"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <figcaption className="mt-3 text-sm text-center text-muted-foreground">
             Zones Convolution
           </figcaption>
@@ -88,7 +91,10 @@ const Zones = () => {
               width="1920"
               height="1080"
               className="w-full object-cover rounded-xl"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
             <figcaption className="mt-3 text-sm text-center text-muted-foreground">
               Uploading images to Zones.
             </figcaption>
@@ -101,7 +107,10 @@ const Zones = () => {
               width="1920"
               height="1080"
               className="w-full object-cover rounded-xl"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
             <figcaption className="mt-3 text-sm text-center text-muted-foreground">
               Removing Images from Zones.
             </figcaption>
@@ -114,7 +123,10 @@ const Zones = () => {
               width="1920"
               height="1080"
               className="w-full object-cover rounded-xl"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
             <figcaption className="mt-3 text-sm text-center text-muted-foreground">
               Listen and convolve Zones in the browser.
             </figcaption>
