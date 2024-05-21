@@ -44,7 +44,7 @@ const Hero = () => {
 const Home = () => {
   return (
     <Fragment>
-      <div className="w-full h-full">
+      <div className="min-h-screen relative">
         <Nature />
         <div className="absolute flex top-[4%] w-full h-full justify-center">
           <Hero />
