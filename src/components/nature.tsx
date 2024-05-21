@@ -205,7 +205,7 @@ const NatureDynamic = withNoSSR(() => {
 
 const Nature = () => {
   return (
-    <div className="relative h-full">
+    <div className="h-full w-full">
       {fixedBackground}
       <NatureDynamic />
     </div>

@@ -29,9 +29,9 @@ const Footer = () => {
         </div>
 
         <ul className="text-center">
-          <FooterLink title="Home" url="#" />
-          <FooterLink title="Projects" url="#" />
-          <FooterLink title="Blog" url="#" />
+          {/*<FooterLink title="Home" url="#" />*/}
+          {/*<FooterLink title="Projects" url="#" />*/}
+          {/*<FooterLink title="Blog" url="#" />*/}
         </ul>
 
         <div className="md:text-right space-x-2">
