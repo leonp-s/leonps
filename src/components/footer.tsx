@@ -1,5 +1,6 @@
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
 import { FC } from "react";
+import Link from "next/link";
 
 const FooterLink: FC<{ title: string; url: string }> = ({ title, url }) => {
   return (
@@ -21,32 +22,32 @@ const Footer = () => {
         <div>
           <a
             className="flex-none text-xl font-semibold text-black dark:text-white"
-            href="#"
-            aria-label="Brand"
+            href="/"
+            aria-label="LeonPS"
           >
             Leon Paterson-Stephens
           </a>
         </div>
 
         <ul className="text-center">
-          {/*<FooterLink title="Home" url="#" />*/}
-          {/*<FooterLink title="Projects" url="#" />*/}
-          {/*<FooterLink title="Blog" url="#" />*/}
+          <FooterLink title="Home" url="/" />
         </ul>
 
         <div className="md:text-right space-x-2">
-          <a
+          <Link
             className="inline-flex justify-center items-center w-8 h-8 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800 dark:focus:ring-offset-slate-900"
-            href="#"
+            href="https://github.com/leonp-s"
+            target="_blank"
           >
             <BiLogoGithub />
-          </a>
-          <a
+          </Link>
+          <Link
             className="inline-flex justify-center items-center w-8 h-8 text-center text-gray-500 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800 dark:focus:ring-offset-slate-900"
-            href="#"
+            href="https://www.linkedin.com/in/leonp-s/"
+            target="_blank"
           >
             <BiLogoLinkedin />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

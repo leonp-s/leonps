@@ -1,14 +1,7 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { BiLogoGithub, BiLogoLinkedin } from "react-icons/bi";
 import { Button } from "@/components/ui/button";
@@ -67,7 +60,7 @@ const Navbar = () => {
         </TabsList>
       </Tabs>
       <div
-        className={`fixed right-0 bottom-0 md:top-0 ${RemoveScroll.classNames.fullWidth}`}
+        className={`fixed right-0 bottom-0 md:bottom-auto md:top-0 ${RemoveScroll.classNames.fullWidth}`}
         style={{ padding: "inherit" }}
       >
         <ModeToggle />
