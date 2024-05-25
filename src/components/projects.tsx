@@ -86,7 +86,7 @@ const Projects = () => {
         }}
       />
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-        <h2 className="font-bold md:text-4xl md:leading-tight dark:text-white">
+        <h2 className="font-bold text-2xl md:text-4xl md:leading-tight dark:text-white">
           Projects
         </h2>
         <p className="mt-1 text-gray-600 dark:text-gray-400">
@@ -110,11 +110,11 @@ const Projects = () => {
           href="/projects/beanstorm"
         />
         <ImageBackgroundCard
-          title="Sinemind"
+          title="Offensive Plugins"
           description="Co-founded plugin development company now collaborating with an artist to create a new range of Slushwave plugins."
-          imageUrl="/projects/sinemind/sinemind_banner.png"
-          imageAlt="SineMind Banner"
-          href="https://sinemind.com"
+          imageUrl="/projects/sinemind/op_banner.png"
+          imageAlt="Offensive Plugins Banner"
+          href="https://offensiveplugins.com"
           cta="Visit the site"
           openInNewTab={true}
         />

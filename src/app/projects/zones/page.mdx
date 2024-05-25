@@ -1,6 +1,4 @@
-import Image from "next/image";
-
----
+_This post is under construction\*_
 
 # Zones Convolution - Spaces On Demand
 
@@ -11,99 +9,65 @@ Inspired by the [Open Air library](https://www.openair.hosted.york.ac.uk) and th
 Zones extends their capabilities by providing; a simple, intuitive interface to tag, categorise and upload IRs,
 and a VST/AU plugin to search and convolve these IRs directly in the box!
 
-{/* The online interface and plugin will both become available for free upon release. */}
-
-This article aims to showcase some of the features, design and implementation detail of the platform in it's current state.
-
 <figure>
-  <Image
-    src="/projects/zones/zones_home.gif"
-    alt="Zones homepage demo."
-    width="1920"
-    height="1080"
-    className="w-full object-cover rounded-xl"
-    style={{
-      maxWidth: "100%",
-      height: "auto",
-    }}
-  />
-  <figcaption className="mt-3 text-sm text-center text-muted-foreground">
-    Zones Convolution
-  </figcaption>
+  <img src="/projects/zones/zones_home.gif" alt="Zones homepage demo." />
+  <figcaption>Zones Convolution</figcaption>
 </figure>
 
-This article aims to showcase some of the features, design and implementation detail of the platform in it's current state.
+This article aims to showcase some of the features, design and implementation detail of the platform in it's current state
+and is split into three parts, Zones Convolver, Zones Web and Zones Client.
+
+## Zone Convolver
+
+Though a number of open source implementations for convolution do currently exist for example in the JUCE library.
+For Zones, we wanted to create a convolution library, particularly suited to larger filters, able to run in a single thread, more appropriate for the model of audio plug-ins.
+
+> Convolution library used in the upcoming Zones Convolution plugin. Implements a non-uniform partitioned convolution (NUPC) scheme with modified Garcia optimal partitioning and time distributed transforms. This is able to run on a single thread without large spikes in load for variable block sizes without additional latency.
 
 <figure>
-  <Image
-    src="/projects/zones/zones_home.gif"
-    alt="Zones homepage demo."
-    width="1920"
-    height="1080"
-    className="w-full object-cover rounded-xl"
-    style={{
-      maxWidth: "100%",
-      height: "auto",
-    }}
+  <img
+    className="w-[40%]"
+    src="/projects/zones/convolver/8_phase_decomposition.jpg"
+    alt="8 Phase Decomposition"
   />
-  <figcaption className="mt-3 text-sm text-center text-muted-foreground">
-    Zones Convolution
-  </figcaption>
+  <figcaption>8 Phase Decomposition</figcaption>
 </figure>
 
-As we've grown, we've seen how Preline has helped companies such as Spotify, Microsoft, Airbnb, Facebook, and Intercom bring their designers closer together to create amazing things. We've also learned that when the culture of sharing is brought in earlier, the better teams adapt and communicate with one another."
+The library is open source and available on GitHub, [Zones Convolver](https://github.com/zones-convolution/zones_convolver). A more thorough explanation of the library detailing its implementation and theory is also made available, [Zones Convolver Documentation](https://github.com/zones-convolution/zones_convolver/blob/main/resources/zones_convolver_documentation.pdf).
 
-> To say that switching to Preline has been life-changing is an understatement. My business has tripled and I got my life back.
+## Zones Web
 
-Nicole Grazioso
+Zones web forms the backend of the platform, dashboard (used to edit and upload Zones/IRs) and in-browser client allowing users to search, convolve and download IRs.
+This was built using NextJS, AWS Lambda, S3 and DynamoDB. Finally, Algolia is used for search.
+
+A pre-release version of the platform is available at, [Zones Convolution](https://zones-convolution.vercel.app), some features are not yet public facing.
 
 <div className="grid grid-cols-2 gap-4 place-content-center">
   <figure>
-    <Image
+    <img
       src="/projects/zones/zones_upload.gif"
       alt="Uploading images to Zones."
-      width="1920"
-      height="1080"
-      className="w-full object-cover rounded-xl"
-      style={{
-        maxWidth: "100%",
-        height: "auto",
-      }}
     />
-    <figcaption className="mt-3 text-sm text-center text-muted-foreground">
-      Uploading images to Zones.
-    </figcaption>
+    <figcaption>Uploading images to Zones.</figcaption>
   </figure>
   <figure>
-    <Image
-      src="/projects/zones/zones_delete.gif"
-      alt="In browser player."
-      width="1920"
-      height="1080"
-      className="w-full object-cover rounded-xl"
-      style={{
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-    <figcaption className="mt-3 text-sm text-center text-muted-foreground">
-      Removing Images from Zones.
-    </figcaption>
+    <img src="/projects/zones/zones_delete.gif" alt="In browser player." />
+    <figcaption>Removing Images from Zones.</figcaption>
   </figure>
   <figure>
-    <Image
-      src="/projects/zones/zones_play.gif"
-      alt="In browser player."
-      width="1920"
-      height="1080"
-      className="w-full object-cover rounded-xl"
-      style={{
-        maxWidth: "100%",
-        height: "auto",
-      }}
-    />
-    <figcaption className="mt-3 text-sm text-center text-muted-foreground">
-      Listen and convolve Zones in the browser.
-    </figcaption>
+    <img src="/projects/zones/zones_play.gif" alt="In browser player." />
+    <figcaption>Listen and convolve Zones in the browser.</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/zones/zones_explore.gif" alt="Explore zones." />
+    <figcaption>Explore zones.</figcaption>
   </figure>
 </div>
+
+## Zones Client
+
+Zones client makes use of both the Convolver and Web projects, bringing them together into a single audio plugin.
+This project is built in C++ using the JUCE framework and incorporates an in DAW IR search engine (the browser),
+IR Engine to perform offline manipulations to IRs for example applying artificial reverberation to aid brightness
+or time-stretching to increase the reverb tail, 3D waterfall graph written in OpenGL to view IRs as they are modified and
+numerous different channel format support.

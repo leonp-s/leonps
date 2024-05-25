@@ -1,1 +1,76 @@
+_This post is under construction\*_
+
 # Beanstorm
+
+---
+
+Espresso machine conversion incorporating pressure and temperature control via a native IOS app over BLE.
+Realtime control in C++, native IOS app in Swift/SwiftUI.
+
+## Introduction
+
+### The Goal
+
+For a while now, a number of existing and new espresso machines have been offering features to
+enable precise control of pressure/flow, temperature, profiles and graph; in real-time, shot characteristics. These features are
+increasingly becoming desired and expected in the `specialty` coffee scene.
+The Decent DE1, Meticulous and Gaggiuino have all served as significant inspiration to the project. All of which facilitate pressure profiles, real-time graphing, and
+temperature control.
+
+### Starting Point
+
+The starting point for the project is an unmodified Rancillio Silvia from 2012, a clean slate to work from.
+The Rancillio Silvia is essentially a glorified kettle, and that's why it's great. All the mechanical components to build
+a great, capable espresso machine, without the software. The Silvia has no digital control electronics, using thermal fuses
+for temperature control and a switch wired directly to the vibratory pump to get the shot started.
+Vibratory pumps are really effective for the size, cheap however really quite loud...
+Both the Decent DE1 and Gaggiuino projects achieve pressure control using vibratory pumps.
+For the Gaggiuino an in-line pressure transducer is used to create the pressure control loop.
+
+## Mechanics
+
+- Fluid OTech GA072
+- Tuning pump
+- Bypass valve
+- Housing electronics
+- New Plumbing
+- The machine
+
+## Electronics
+
+- Motor power supply
+- Motor speed controller
+- ESP32 S3
+- SSR
+- Temp sensor
+- Pressure sensor
+
+## OS
+
+- Peripherals
+- Architecture
+- Free RTOS (Threading)#
+- BLE / NimBLE
+- Event Bridge
+- Protobuf
+- Controlling Temp
+- Interpreting Profiles
+- Programs
+
+## App
+
+- Swift UI
+- Brew Graph
+  - Swift UI Charts
+  - Performance Issues
+  - Canvas Drawing
+- Brew Profiles
+  - Saving / Loading
+  - Profile Editor
+  - Swift Data
+- BLE
+  - Connecting Devices
+  - Managing Connection State
+  - Characteristics (Temp, Pressure, ...)
+  - Transferring Profiles
+  - Protobuf
