@@ -97,7 +97,7 @@ const Projects = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <SeperatedCard
           title="Zones Convolution"
-          description="Access and convolve a rapidly growing community driven library of impulse responses online or directly from your DAW. Plugin client in JUCE (C++), backend and web client built using NextJS, Lambda, S3, terraform and Algolia."
+          description="Access and convolve a rapidly growing community driven library of impulse responses online or directly from your DAW. Plugin client in JUCE (C++), backend and web client built using NextJS, Lambda, S3, Terraform and Algolia."
           imageUrl="/projects/zones/zones_client_browser.png"
           imageAlt="Image Description"
           href="/projects/zones"

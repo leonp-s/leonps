@@ -27,27 +27,85 @@ The starting point for the project is an unmodified Rancillio Silvia from 2012, 
 The Rancillio Silvia is essentially a glorified kettle, and that's why it's great. All the mechanical components to build
 a great, capable espresso machine, without the software. The Silvia has no digital control electronics, using thermal fuses
 for temperature control and a switch wired directly to the vibratory pump to get the shot started.
-Vibratory pumps are really effective for the size, cheap however really quite loud...
+Vibratory pumps are really effective for the size, they are also quite cheap but tend to be quite loud.
 Both the Decent DE1 and Gaggiuino projects achieve pressure control using vibratory pumps.
 For the Gaggiuino an in-line pressure transducer is used to create the pressure control loop.
 
 ## Mechanics
 
+In order to achieve a much quieter sound when the machine is pulling a shot,
+the vibratory pump has been switched out for the Fluid OTech GA072.
+This is a DC rotary vane pump that is used in lager, commercial, multi group-head espresso machines
+and really has no place in a home machine like the Silvia. Nevertheless, I managed to pick one up on
+eBay for about £80.00, and so I thought I would give it a shot. This introduced a number of challenges, both from an
+electronics standpoint (i.e. how can I power and control a 24V DC motor in a small UK mains powered espresso machine) and also
+from a plumbing perspective. These pumps are powerful, providing a flow-rate far too high for conventional espresso.
+
+<div className="grid grid-cols-2 gap-4 place-content-center items-center">
+  <figure>
+    <img
+      src="/projects/beanstorm/pump_compare.jpg"
+      alt="ULKA EP5 vs Fluid OTech GA072"
+    />
+    <figcaption>ULKA EP5 vs Fluid OTech GA072.</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/beanstorm/pump_in_place.png" alt="Pump in place" />
+    <figcaption>Pump in place within the machine.</figcaption>
+  </figure>
+</div>
+
+To overcome the issue of flow rate, a bypass circuit is needed to essentially
+drop the flow rate such that you have control for a range of RPMs. I found these two threads super
+useful and explain in more detail the problems with controlling flow/pressure with rotary vane pumps,
+[convert-to-rotary-pump](https://www.home-barista.com/repairs/convert-to-rotary-pump-stepper-motor-t87534-20.html), [pressure-profiling-with-fluid-o-tech](https://www.home-barista.com/espresso-machines/pressure-profiling-with-fluid-o-tech-tmfr-pump-or-wholesale-copying-greg-scaces-ideas-t12179.html).
+
+These threads suggested drilling the regulator valve in the pump to create the bypass (this sounded scary and I don't have access to a milling machine to get through the steel valve).
+However, I have used an external bypass circuit across the inlet and outlet of the pump with a variable needle valve in between that allows me to tune the flow rate to the effective RPM range of the pump.
+
 - Fluid OTech GA072
-- Tuning pump
+- Pump tuning
 - Bypass valve
 - Housing electronics
-- New Plumbing
-- The machine
+- New plumbing
 
 ## Electronics
 
+Do not rely on any of this build information, dealing with mains power can be very dangerous, this is in no way intended as advice.
+
+This espresso mod removes entirely all previous wiring of the machine to build a new custom harness incorporating a hefty
+240VAC - 24VDC converter, DC motor speed controller, 40A SSR for temperature control of the boiler and mechanical relay for
+switching the 3-way-valve in the group head. Alongside this, the machine is controlled with an ESP32 S3 microcontroller
+an inline pressure transducer (for pressure control) and thermocouple, connected to the boiler (for temperature control).
+
+<div className="flex gap-4 justify-center">
+  <figure>
+    <img
+      src="/projects/beanstorm/ga072_current.png"
+      alt="GA072 Pressure vs Flow vs Current"
+      className="w-[360px]"
+    />
+    <figcaption>GA072 Pressure vs Flow vs Current.</figcaption>
+  </figure>
+</div>
+
 - Motor power supply
 - Motor speed controller
-- ESP32 S3
 - SSR
-- Temp sensor
+- ESP32 S3
+- Temperature sensor
 - Pressure sensor
+
+<div className="flex gap-4 justify-center">
+  <figure>
+    <img
+      src="/projects/beanstorm/beanstorm_electronics.png"
+      alt="Look away now if you fear power electronics."
+      className="w-[280px] -rotate-90"
+    />
+    <figcaption>Look away now if you fear power electronics.</figcaption>
+  </figure>
+</div>
 
 ## OS
 
@@ -65,16 +123,16 @@ For the Gaggiuino an in-line pressure transducer is used to create the pressure 
 
 - Swift UI
 - Brew Graph
-  - Swift UI Charts
-  - Performance Issues
-  - Canvas Drawing
+- Swift UI Charts
+- Performance Issues
+- Canvas Drawing
 - Brew Profiles
-  - Saving / Loading
-  - Profile Editor
-  - Swift Data
+- Saving / Loading
+- Profile Editor
+- Swift Data
 - BLE
-  - Connecting Devices
-  - Managing Connection State
-  - Characteristics (Temp, Pressure, ...)
-  - Transferring Profiles
-  - Protobuf
+- Connecting Devices
+- Managing Connection State
+- Characteristics (Temp, Pressure, ...)
+- Transferring Profiles
+- Protobuf
