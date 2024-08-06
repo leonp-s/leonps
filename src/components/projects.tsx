@@ -139,6 +139,14 @@ const Projects = () => {
           cta="Visit the site"
           openInNewTab={true}
         />
+        <SeperatedCard
+          title="Orbital Delay"
+          description="Orbital delay designer built in JUCE (C++). This makes designing delays fast and intuitive, simply drag and drop taps into an orbital pattern."
+          imageUrl="/projects/orbital_delay/orbital_delay_banner.png"
+          imageAlt="Orbital Delay Project Banner"
+          href="/projects/orbital-delay"
+          comingSoon
+        />
         <ImageBackgroundCard
           title="Redshift"
           description="Lightning fast arena shooter built in Unity (C#)."
@@ -147,14 +155,6 @@ const Projects = () => {
           href="/projects/redshift"
           cta="Read more"
           openInNewTab={false}
-        />
-        <SeperatedCard
-          title="Orbital Delay"
-          description="Orbital delay designer built in JUCE (C++). This makes designing delays fast and intuitive, simply drag and drop taps into an orbital pattern."
-          imageUrl="/projects/orbital_delay/orbital_delay_banner.png"
-          imageAlt="Orbital Delay Project Banner"
-          href="/projects/orbital-delay"
-          comingSoon
         />
         <SeperatedCard
           title="Noteflow"
