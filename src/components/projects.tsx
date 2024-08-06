@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import Image from "next/image";
+import { Hammer } from "lucide-react";
 
 const ImageBackgroundCard: FC<{
   title: string;
@@ -48,9 +49,24 @@ const SeperatedCard: FC<{
   imageUrl: string;
   imageAlt: string;
   href: string;
-}> = ({ imageAlt, imageUrl, title, description, href }) => {
-  return (
-    <a className="group rounded-xl overflow-hidden" href={href}>
+  comingSoon?: boolean;
+}> = ({ imageAlt, imageUrl, title, description, href, comingSoon }) => {
+  const readMoreCta = (
+    <p className="mt-5 inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 group-hover:underline font-medium">
+      Read more
+      <BiChevronRight />
+    </p>
+  );
+
+  const comingSoonCta = (
+    <p className="mt-5 inline-flex items-center gap-x-1.5 text-muted-foreground decoration-2 font-medium">
+      Under Construction - Check Back Soon
+      <Hammer className="w-4 h-4" />
+    </p>
+  );
+
+  const content = (
+    <>
       <div className="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden will-change-transform">
         <Image
           className="w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
@@ -66,11 +82,16 @@ const SeperatedCard: FC<{
           {title}
         </h3>
         <p className="mt-3 text-gray-800 dark:text-gray-200">{description}</p>
-        <p className="mt-5 inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 group-hover:underline font-medium">
-          Read more
-          <BiChevronRight />
-        </p>
+        {comingSoon ? comingSoonCta : readMoreCta}
       </div>
+    </>
+  );
+
+  return comingSoon ? (
+    <div className="group rounded-xl overflow-hidden">{content}</div>
+  ) : (
+    <a className="group rounded-xl overflow-hidden" href={href}>
+      {content}
     </a>
   );
 };
@@ -133,6 +154,7 @@ const Projects = () => {
           imageUrl="/projects/orbital_delay/orbital_delay_banner.png"
           imageAlt="Orbital Delay Project Banner"
           href="/projects/orbital-delay"
+          comingSoon
         />
         <SeperatedCard
           title="Noteflow"
@@ -140,6 +162,7 @@ const Projects = () => {
           imageUrl="/projects/note_flow/note_flow_banner.png"
           imageAlt="Noteflow Banner"
           href="/projects/noteflow"
+          comingSoon
         />
       </div>
     </div>
