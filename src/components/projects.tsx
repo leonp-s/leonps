@@ -131,11 +131,11 @@ const Projects = () => {
           href="/projects/beanstorm"
         />
         <ImageBackgroundCard
-          title="Offensive Plugins"
+          title="Ember DSP"
           description="Co-founded plugin development company now collaborating with an artist to create a new range of Slushwave plugins."
-          imageUrl="/projects/sinemind/op_banner.png"
-          imageAlt="Offensive Plugins Banner"
-          href="https://offensiveplugins.com"
+          imageUrl="/projects/emberdsp/emberdsp_banner.png"
+          imageAlt="EmberDSP Banner"
+          href="https://emberdsp.com"
           cta="Visit the site"
           openInNewTab={true}
         />
