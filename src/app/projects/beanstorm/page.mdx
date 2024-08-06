@@ -4,8 +4,9 @@ _This post is under construction\*_
 
 # Beanstorm
 
-Espresso machine conversion incorporating pressure and temperature control via a native IOS app over BLE.
-Realtime control in C++, native IOS app in Swift/SwiftUI.
+Espresso machine conversion incorporating pressure and temperature control via a
+native IOS app over BLE. Realtime control in C++, native IOS app in
+Swift/SwiftUI.
 
 ---
 
@@ -15,31 +16,39 @@ Realtime control in C++, native IOS app in Swift/SwiftUI.
 
 ### The Goal
 
-For a while now, a number of existing and new espresso machines have been offering features to
-enable precise control of pressure/flow, temperature, profiles and graph; in real-time, shot characteristics. These features are
-increasingly becoming desired and expected in the `specialty` coffee scene.
-The Decent DE1, Meticulous and Gaggiuino have all served as significant inspiration to the project. All of which facilitate pressure profiles, real-time graphing, and
-temperature control.
+For a while now, a number of existing and new espresso machines have been
+offering features to enable precise control of pressure/flow, temperature,
+profiles and graph; in real-time, shot characteristics. These features are
+increasingly becoming desired and expected in the `specialty` coffee scene. The
+Decent DE1, Meticulous and Gaggiuino have all served as significant inspiration
+to the project. All of which facilitate pressure profiles, real-time graphing,
+and temperature control.
 
 ### Starting Point
 
-The starting point for the project is an unmodified Rancillio Silvia from 2012, a clean slate to work from.
-The Rancillio Silvia is essentially a glorified kettle, and that's why it's great. All the mechanical components to build
-a great, capable espresso machine, without the software. The Silvia has no digital control electronics, using thermal fuses
-for temperature control and a switch wired directly to the vibratory pump to get the shot started.
-Vibratory pumps are really effective for the size, they are also quite cheap but tend to be quite loud.
-Both the Decent DE1 and Gaggiuino projects achieve pressure control using vibratory pumps.
-For the Gaggiuino an in-line pressure transducer is used to create the pressure control loop.
+The starting point for the project is an unmodified Rancillio Silvia from 2012,
+a clean slate to work from. The Rancillio Silvia is essentially a glorified
+kettle, and that's why it's great. All the mechanical components to build a
+great, capable espresso machine, without the software. The Silvia has no digital
+control electronics, using thermal fuses for temperature control and a switch
+wired directly to the vibratory pump to get the shot started. Vibratory pumps
+are really effective for the size, they are also quite cheap but tend to be
+quite loud. Both the Decent DE1 and Gaggiuino projects achieve pressure control
+using vibratory pumps. For the Gaggiuino an in-line pressure transducer is used
+to create the pressure control loop.
 
 ## Mechanics
 
-In order to achieve a much quieter sound when the machine is pulling a shot,
-the vibratory pump has been switched out for the Fluid OTech GA072.
-This is a DC rotary vane pump that is used in lager, commercial, multi group-head espresso machines
-and really has no place in a home machine like the Silvia. Nevertheless, I managed to pick one up on
-eBay for about £80.00, and so I thought I would give it a shot. This introduced a number of challenges, both from an
-electronics standpoint (i.e. how can I power and control a 24V DC motor in a small UK mains powered espresso machine) and also
-from a plumbing perspective. These pumps are powerful, providing a flow-rate far too high for conventional espresso.
+In order to achieve a much quieter sound when the machine is pulling a shot, the
+vibratory pump has been switched out for the Fluid OTech GA072. This is a DC
+rotary vane pump that is used in lager, commercial, multi group-head espresso
+machines and really has no place in a home machine like the Silvia.
+Nevertheless, I managed to pick one up on eBay for about £80.00, and so I
+thought I would give it a shot. This introduced a number of challenges, both
+from an electronics standpoint (i.e. how can I power and control a 24V DC motor
+in a small UK mains powered espresso machine) and also from a plumbing
+perspective. These pumps are powerful, providing a flow-rate far too high for
+conventional espresso.
 
 <div className="grid grid-cols-2 gap-4 place-content-center items-center">
   <figure>
@@ -56,27 +65,34 @@ from a plumbing perspective. These pumps are powerful, providing a flow-rate far
 </div>
 
 To overcome the issue of flow rate, a bypass circuit is needed to essentially
-drop the flow rate such that you have control for a range of RPMs. I found these two threads super
-useful and explain in more detail the problems with controlling flow/pressure with rotary vane pumps,
-[convert-to-rotary-pump](https://www.home-barista.com/repairs/convert-to-rotary-pump-stepper-motor-t87534-20.html), [pressure-profiling-with-fluid-o-tech](https://www.home-barista.com/espresso-machines/pressure-profiling-with-fluid-o-tech-tmfr-pump-or-wholesale-copying-greg-scaces-ideas-t12179.html).
 
-These threads suggested drilling the regulator valve in the pump to create the bypass (this sounded scary and I don't have access to a milling machine to get through the steel valve).
-However, I have used an external bypass circuit across the inlet and outlet of the pump with a variable needle valve in between that allows me to tune the flow rate to the effective RPM range of the pump.
+drop the flow rate such that you have control for a range of RPMs. I found these
+two threads super useful and explain in more detail the problems with
+controlling flow/pressure with rotary vane pumps,
+[convert-to-rotary-pump](https://www.home-barista.com/repairs/convert-to-rotary-pump-stepper-motor-t87534-20.html),
+[pressure-profiling-with-fluid-o-tech](https://www.home-barista.com/espresso-machines/pressure-profiling-with-fluid-o-tech-tmfr-pump-or-wholesale-copying-greg-scaces-ideas-t12179.html).
 
-- Fluid OTech GA072
-- Pump tuning
-- Bypass valve
-- Housing electronics
-- New plumbing
+These threads suggested drilling the regulator valve in the pump to create the
+bypass (this sounded scary and I don't have access to a milling machine to get
+through the steel valve). However, I have used an external bypass circuit across
+the inlet and outlet of the pump with a variable needle valve in between that
+allows me to tune the flow rate to the effective RPM range of the pump. I have
+manually tunes the machine using the valve, however I would consider graphing
+pressure against pump RPM with a blanking disk in place to tune this more
+accurately.
 
 ## Electronics
 
-Do not rely on any of this build information, dealing with mains power can be very dangerous, this is in no way intended as advice.
+Please do not rely on any of this build information, dealing with mains power
+can be very dangerous, this post is in no way intended as advice.
 
-This espresso mod removes entirely all previous wiring of the machine to build a new custom harness incorporating a hefty
-240VAC - 24VDC converter, DC motor speed controller, 40A SSR for temperature control of the boiler and mechanical relay for
-switching the 3-way-valve in the group head. Alongside this, the machine is controlled with an ESP32 S3 microcontroller
-an inline pressure transducer (for pressure control) and thermocouple, connected to the boiler (for temperature control).
+This espresso mod removes entirely all original wiring of the machine to build a
+new custom harness incorporating a hefty 240VAC - 24VDC converter, DC motor
+speed controller, 40A SSR for temperature control of the boiler and mechanical
+relay for switching the 3-way-valve in the group head. Alongside this, the
+machine is controlled with an ESP32 S3 microcontroller an inline pressure
+transducer (for pressure control) and thermocouple, connected to the boiler (for
+temperature control).
 
 <div className="flex gap-4 justify-center">
   <figure>
@@ -100,10 +116,10 @@ an inline pressure transducer (for pressure control) and thermocouple, connected
   <figure>
     <img
       src="/projects/beanstorm/beanstorm_electronics.png"
-      alt="Look away now if you fear power electronics."
+      alt="New control electronics."
       className="w-[280px] -rotate-90"
     />
-    <figcaption>Look away now if you fear power electronics.</figcaption>
+    <figcaption>New control electronics.</figcaption>
   </figure>
 </div>
 
@@ -111,7 +127,7 @@ an inline pressure transducer (for pressure control) and thermocouple, connected
 
 - Peripherals
 - Architecture
-- Free RTOS (Threading)#
+- Free RTOS (Threading)
 - BLE / NimBLE
 - Event Bridge
 - Protobuf

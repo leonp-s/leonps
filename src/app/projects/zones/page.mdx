@@ -4,25 +4,35 @@ _This post is under construction\*_
 
 ---
 
-Zones convolution allows users to find and share impulse responses captured in great sounding and unique spaces.
-Inspired by the [Open Air library](https://www.openair.hosted.york.ac.uk) and the popular [Altiverb](https://www.audioease.com/altiverb/) plugin,
-Zones extends their capabilities by providing; a simple, intuitive interface to tag, categorise and upload IRs,
-and a VST/AU plugin to search and convolve these IRs directly in the box!
+Zones convolution allows users to find and share impulse responses captured in
+great sounding and unique spaces. Inspired by the
+[Open Air library](https://www.openair.hosted.york.ac.uk) and the popular
+[Altiverb](https://www.audioease.com/altiverb/) plugin, Zones extends their
+capabilities by providing; a simple, intuitive interface to tag, categorise and
+upload IRs, and a VST/AU plugin to search and convolve these IRs directly in the
+box!
 
 <figure>
   <img src="/projects/zones/zones_home.gif" alt="Zones homepage demo." />
   <figcaption>Zones Convolution</figcaption>
 </figure>
 
-This article aims to showcase some of the features, design and implementation detail of the platform in it's current state
-and is split into three parts, Zones Convolver, Zones Web and Zones Client.
+This article aims to showcase some of the features, design and implementation
+detail of the platform in it's current state and is split into three parts,
+Zones Convolver, Zones Web and Zones Client.
 
 ## Zone Convolver
 
-Though a number of open source implementations for convolution do currently exist for example in the JUCE library.
-For Zones, we wanted to create a convolution library, particularly suited to larger filters, able to run in a single thread, more appropriate for the model of audio plug-ins.
+Though a number of open source implementations for convolution do currently
+exist for example in the JUCE library. For Zones, we wanted to create a
+convolution library, particularly suited to larger filters, able to run in a
+single thread, more appropriate for the model of audio plug-ins.
 
-> Convolution library used in the upcoming Zones Convolution plugin. Implements a non-uniform partitioned convolution (NUPC) scheme with modified Garcia optimal partitioning and time distributed transforms. This is able to run on a single thread without large spikes in load for variable block sizes without additional latency.
+> Convolution library used in the upcoming Zones Convolution plugin. Implements
+> a non-uniform partitioned convolution (NUPC) scheme with modified Garcia
+> optimal partitioning and time distributed transforms. This is able to run on a
+> single thread without large spikes in load for variable block sizes without
+> additional latency.
 
 <figure>
   <img
@@ -33,14 +43,22 @@ For Zones, we wanted to create a convolution library, particularly suited to lar
   <figcaption>8 Phase Decomposition</figcaption>
 </figure>
 
-The library is open source and available on GitHub, [Zones Convolver](https://github.com/zones-convolution/zones_convolver). A more thorough explanation of the library detailing its implementation and theory is also made available, [Zones Convolver Documentation](https://github.com/zones-convolution/zones_convolver/blob/main/resources/zones_convolver_documentation.pdf).
+The library is open source and available on GitHub,
+[Zones Convolver](https://github.com/zones-convolution/zones_convolver). A more
+thorough explanation of the library detailing its implementation and theory is
+also made available,
+[Zones Convolver Documentation](https://github.com/zones-convolution/zones_convolver/blob/main/resources/zones_convolver_documentation.pdf).
 
 ## Zones Web
 
-Zones web forms the backend of the platform, dashboard (used to edit and upload Zones/IRs) and in-browser client allowing users to search, convolve and download IRs.
-This was built using NextJS, AWS Lambda, S3 and DynamoDB. Finally, Algolia is used for search.
+Zones web forms the backend of the platform, dashboard (used to edit and upload
+Zones/IRs) and in-browser client allowing users to search, convolve and download
+IRs. This was built using NextJS, AWS Lambda, S3 and DynamoDB. Finally, Algolia
+is used for search.
 
-A pre-release version of the platform is available at, [Zones Convolution](https://zones-convolution.vercel.app), some features are not yet public facing.
+A pre-release version of the platform is available at,
+[Zones Convolution](https://zones-convolution.vercel.app), some features are not
+yet public facing.
 
 <div className="grid grid-cols-2 gap-4 place-content-center">
   <figure>
@@ -66,8 +84,10 @@ A pre-release version of the platform is available at, [Zones Convolution](https
 
 ## Zones Client
 
-Zones client makes use of both the Convolver and Web projects, bringing them together into a single audio plugin.
-This project is built in C++ using the JUCE framework and incorporates an in DAW IR search engine (the browser),
-IR Engine to perform offline manipulations to IRs for example applying artificial reverberation to aid brightness
-or time-stretching to increase the reverb tail, 3D waterfall graph written in OpenGL to view IRs as they are modified and
+Zones client makes use of both the Convolver and Web projects, bringing them
+together into a single audio plugin. This project is built in C++ using the JUCE
+framework and incorporates an in DAW IR search engine (the browser), IR Engine
+to perform offline manipulations to IRs for example applying artificial
+reverberation to aid brightness or time-stretching to increase the reverb tail,
+3D waterfall graph written in OpenGL to view IRs as they are modified and
 numerous different channel format support.

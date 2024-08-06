@@ -2,51 +2,46 @@ import { YouTube } from "@/components/youtube";
 
 ![Redshift Logo](/projects/redshift/redshift_logo.png)
 
-I founded Redshift after falling in love with a few other games in the
-genre. Quake Live, Unreal Tournament and Uberstrike all influenced the
-GDD in some way or other.
+I founded Redshift after falling in love with a few other games in the genre.
+Quake Live, Unreal Tournament and Uberstrike all influenced the GDD in some way
+or other.
 
-Redshift is a re-imagined arena-shooter that lets you choose the pace
-you want to play! It revitalises the genre by introducing unique
-design and new intuitive weapons. Redshift has a fun levelling system,
-competitive ladders, tons of skinned items, and an active, caring
-development team!
+Redshift is a re-imagined arena-shooter that lets you choose the pace you want
+to play! It revitalises the genre by introducing unique design and new intuitive
+weapons. Redshift has a fun levelling system, competitive ladders, tons of
+skinned items, and an active, caring development team!
 
 <YouTube id="RZodemetqLg" />
 
 ## Realtime friends, messaging and lobby
 
-Among other things, I took on the responsibility of creating the
-back-end for the game. This included a user system based around JWT
-with role based access to API endpoints. This allows game
-administrators to ban, mute and kick players easily via a web based
-administration panel. The friend system allows users to add/remove
-friends and communicate in real time. It also relays user status
-allowing friends to join their current game. All this can be seen in
-the video below.
+Among other things, I took on the responsibility of creating the back-end for
+the game. This included a user system based around JWT with role based access to
+API endpoints. This allows game administrators to ban, mute and kick players
+easily via a web based administration panel. The friend system allows users to
+add/remove friends and communicate in real time. It also relays user status
+allowing friends to join their current game. All this can be seen in the video
+below.
 
-The games network architecture is based around a semi-authorititive
-approach. Weapon rate of fire checks and player stats are all done on
-the server. This is of course not as effective as a fully
-authorititive approach though for the sake of practicality (COST) it
-works quite well. Other anti-cheat measures are also in place
-client-side.
+The games network architecture is based around a semi-authorititive approach.
+Weapon rate of fire checks and player stats are all done on the server. This is
+of course not as effective as a fully authorititive approach though for the sake
+of practicality (COST) it works quite well. Other anti-cheat measures are also
+in place client-side.
 
 ## Game Mechanics
 
-The strafing mechanic also known as bunnyhopping is adopted by games
-such as Quake, CSGO and Unreal tournament. An example approach is as
-shown here, [Bunnyhopping from the Programmer's Perspective](http://adrianb.io/2015/02/14/bunnyhop.html).
-It should be noted that the issue with other arena shooters is that
-strafing can become very difficult to learn for new players. My aim was
-to eliminate this learning curve and make it simple, yet with the ability
-for players to master. I developed a character controller that implements
-this strafing mechanic, and have recently re-worked it to support a more
-server authorititve approach.
+The strafing mechanic also known as bunnyhopping is adopted by games such as
+Quake, CSGO and Unreal tournament. An example approach is as shown here,
+[Bunnyhopping from the Programmer's Perspective](http://adrianb.io/2015/02/14/bunnyhop.html).
+It should be noted that the issue with other arena shooters is that strafing can
+become very difficult to learn for new players. My aim was to eliminate this
+learning curve and make it simple, yet with the ability for players to master. I
+developed a character controller that implements this strafing mechanic, and
+have recently re-worked it to support a more server authorititve approach.
 
-The in-game shop allows users to purchase new weapons and update their
-loadouts. A player can equip a total of three weapons, excluding the
-default melee. These are machine gun, shotgun and sniper. A player
-cannot equip more than one class of weapon. The shop automatically
-pulls in data from the CMS (Prismic). This allows us to quickly add
-new weapons to the shop when they are ready.
+The in-game shop allows users to purchase new weapons and update their loadouts.
+A player can equip a total of three weapons, excluding the default melee. These
+are machine gun, shotgun and sniper. A player cannot equip more than one class
+of weapon. The shop automatically pulls in data from the CMS (Prismic). This
+allows us to quickly add new weapons to the shop when they are ready.
