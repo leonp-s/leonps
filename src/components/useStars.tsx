@@ -1,5 +1,5 @@
 import React, { FC, RefObject, useEffect, useRef } from "react";
-import { Tree } from "@/components/tree";
+import { Tree } from "@/lib/nature/tree";
 import seedRandom from "seedrandom";
 import { useElementSize } from "usehooks-ts";
 
@@ -66,10 +66,10 @@ class Stars {
         canvas.width > 1920
           ? Stars.starCount
           : canvas.width > 1200
-          ? Stars.starCount / 2
-          : canvas.width > 600
-          ? Stars.starCount / 3
-          : Stars.starCount / 4;
+            ? Stars.starCount / 2
+            : canvas.width > 600
+              ? Stars.starCount / 3
+              : Stars.starCount / 4;
 
       for (let starIndex = 0; starIndex < drawStarCount; ++starIndex) {
         let star = this.stars[starIndex];
