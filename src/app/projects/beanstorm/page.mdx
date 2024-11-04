@@ -122,17 +122,57 @@ temperature control).
   </figure>
 </div>
 
+# Software
+
+Beanstorm comprises two projects, the 'OS' and App. Beanstorm OS is written in
+C++, running on the ESP32 S3 and is responsible for controlling the machine,
+core tasks: taking sensor readings, switching the heating element, managing the
+pump, opening the three-way solenoid valve, exposing values and offering an API
+to interact with the machine via BLE, saving and executing pressure profiles.
+The app is native IOS, written in Swift UI and interfaces with the machine via
+BLE and Protobuf, the app can start shots, graph pressure and temperature
+readings in realtime, design, save and modify profiles via an intuitive curve
+editor, transfer profiles over to the machine and update different machine
+settings.
+
 ## OS
 
-- Peripherals
+Beanstorm OS makes use of Free RTOS largely to separate concerns between
+communications via BLE and the actual control of the machine. On startup, the
+BLE service responsible for providing the API to interact with the app via BLE
+is pinned to a separate core to the control logic. Communications are then made
+via immutable, thread safe queues. The event bridge, responsible for sending
+commands from the BLE service to the control service, and the notification
+queue, which the control service can use to notify the BLE Service of changes
+for example a shot starting (via a physical switch on the machine) or sensor
+readings. The thinking behind this architecture was largely to separate the
+interface for how the machine is communicated with vs how the machine is being
+run. Take for example, the ESP32 supports WIFI so possibly at some point in
+time, it would be good to support a user interface running using web
+technologies, or possibly an embedded screen. On reflection, I could/should?
+have used the event bridge for the switches on the machine.
+
+The control side of the 'OS' has a few main responsibilities, reading and
+interacting with different physical peripherals, running different programs
+(modes), maintaining some form of machine state, controlling temperature and
+executing pressure profiles. Peripherals are structured such that only a simple
+API is provided to the caller (without the need to understand the underlying
+mechanism), for example the temperature sensor provides a `ReadTemperature` call
+returning the current temperature. I found this structure particularly helped
+simplify the more complicated control logic in profiles. Temperature control is
+achieved using PID, switching the SSR of the boiler with windowing.
+
 - Architecture
 - Free RTOS (Threading)
-- BLE / NimBLE
 - Event Bridge
-- Protobuf
+
+- Peripherals
 - Controlling Temp
-- Interpreting Profiles
 - Programs
+
+- BLE / NimBLE
+- Protobuf
+- Interpreting Profiles
 
 ## App
 
