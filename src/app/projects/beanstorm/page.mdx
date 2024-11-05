@@ -122,7 +122,7 @@ temperature control).
   </figure>
 </div>
 
-# Software
+# Software -- NEEDS PROOF READING...
 
 Beanstorm comprises two projects, the 'OS' and App. Beanstorm OS is written in
 C++, running on the ESP32 S3 and is responsible for controlling the machine,
@@ -136,6 +136,22 @@ editor, transfer profiles over to the machine and update different machine
 settings.
 
 ## OS
+
+TLDR:
+
+- Architecture
+
+  - Free RTOS (Threading)
+  - Event Bridge
+
+- Control logic
+- Peripherals
+- Controlling Temp
+- Programs
+
+- BLE / NimBLE
+- Protobuf
+- Interpreting Profiles
 
 Beanstorm OS makes use of Free RTOS largely to separate concerns between
 communications via BLE and the actual control of the machine. On startup, the
@@ -160,19 +176,17 @@ API is provided to the caller (without the need to understand the underlying
 mechanism), for example the temperature sensor provides a `ReadTemperature` call
 returning the current temperature. I found this structure particularly helped
 simplify the more complicated control logic in profiles. Temperature control is
-achieved using PID, switching the SSR of the boiler with windowing.
-
-- Architecture
-- Free RTOS (Threading)
-- Event Bridge
-
-- Peripherals
-- Controlling Temp
-- Programs
-
-- BLE / NimBLE
-- Protobuf
-- Interpreting Profiles
+achieved using PID, switching the SSR of the boiler with windowing. Similarly,
+pressure control is achieved with PID, however this is controlling a variable
+speed motor in the pump, with a relationship between RPM and pressure (this was
+much more sensitive in tuning, and is much more susceptible to oscillations).
+The control logic provides a loop that performs common tasks for example, sensor
+readings, health check, probing the event bridge. However, the state is built
+using a state machine, with different programs that can be entered and exited
+and hook into the common loop. The idea behind this was in order to provide a
+number of different modes, idle, brewing, steaming (needs to get hotter for
+steaming milk and not run the pump), cleaning cycles and provide logical
+separation between how each of these behave.
 
 ## App
 
