@@ -124,16 +124,25 @@ temperature control).
 
 # Software -- NEEDS PROOF READING...
 
-Beanstorm comprises two projects, the 'OS' and App. Beanstorm OS is written in
-C++, running on the ESP32 S3 and is responsible for controlling the machine,
-core tasks: taking sensor readings, switching the heating element, managing the
-pump, opening the three-way solenoid valve, exposing values and offering an API
-to interact with the machine via BLE, saving and executing pressure profiles.
-The app is native IOS, written in Swift UI and interfaces with the machine via
-BLE and Protobuf, the app can start shots, graph pressure and temperature
-readings in realtime, design, save and modify profiles via an intuitive curve
-editor, transfer profiles over to the machine and update different machine
-settings.
+Beanstorm is built around two key projects: the **Beanstorm OS** and the
+**Beanstorm App**.
+
+The Beanstorm OS is developed in C++ to run on the ESP32 S3 microcontroller,
+where it manages the essential functions of the machine. For example, taking
+sensor readings, controlling the heating element, managing the pump, and
+operating a three-way solenoid valve. The OS provides an API over Bluetooth Low
+Energy (BLE), making various machine values and controls accessible. It also
+allows the saving, loading and execution of different pressure profiles that can
+be designed using the app.
+
+The Beanstorm App is a native iOS application developed in Swift UI, designed to
+interface with the OS via BLE using Protobuf for data
+serialisation/de-serialisation. The app enables users to initiate shots and
+provides real-time graphic of pressure and temperature data. It also includes an
+interactive curve editor, allowing the user to design, save, and modify pressure
+profiles, which can then be transferred to the machine. The app also allows
+controlling a number of different machine settings for example heater PID
+coefficients.
 
 ## OS
 
@@ -187,6 +196,31 @@ and hook into the common loop. The idea behind this was in order to provide a
 number of different modes, idle, brewing, steaming (needs to get hotter for
 steaming milk and not run the pump), cleaning cycles and provide logical
 separation between how each of these behave.
+
+For communication with the app, the machine provides a BLE API with a service
+containing a number of readonly characteristics for simple data such as pressure
+and temperature readings, but also more complex characteristics for example, the
+shot control characteristic which can start pulling a shot and communicate if a
+shot is running. Additionally, pressure profiles are also transferred via a
+characteristic, the `BrewTransferCharacteristic`, however due to limitations
+placed by BLE in the data size of single characteristics, being a maximum
+characteristic length of 512 bytes, transferring profiles, with variable length
+names, number of control points required implementing a custom protocol around
+characteristics to chunk the larger data and re-build at each end. This is a
+relatively common approach for OTA upgrades on some devices. Though it has been
+a great experience learning more about BLE, I did find it to be quite limiting
+in some respects, WIFI would have been considerably simpler, however that would
+have either required the device to connect to the machine and loose internet
+access or the machine to connect to the local WIFI and be an exposed device. Two
+choices were made however that I believe probably simplified the process, first
+NimBLE, an open source BLE library has been used in order to interact with
+higher level concepts of BLE such as services and characteristics, providing a
+nice interface to define characteristics with callbacks, and interact with
+notifications and subscriptions to different data. Protobuf has also been used,
+with NanoPB (C library) allowing a single schema defining the data format of
+each characteristic that can then also be consumed in Swift without worrying
+about different endianness or data size, and also help catch errors when
+serialising and de-serialising more complicated data structures.
 
 ## App
 
