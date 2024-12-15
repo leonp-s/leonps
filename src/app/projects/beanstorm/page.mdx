@@ -122,7 +122,7 @@ temperature control).
   </figure>
 </div>
 
-# Software -- NEEDS PROOF READING...
+# Software
 
 Beanstorm is built around two key projects: the **Beanstorm OS** and the
 **Beanstorm App**.
@@ -145,22 +145,6 @@ controlling a number of different machine settings for example heater PID
 coefficients.
 
 ## OS
-
-TLDR:
-
-- Architecture
-
-  - Free RTOS (Threading)
-  - Event Bridge
-
-- Control logic
-- Peripherals
-- Controlling Temp
-- Programs
-
-- BLE / NimBLE
-- Protobuf
-- Interpreting Profiles
 
 Beanstorm OS makes use of Free RTOS largely to separate concerns between
 communications via BLE and the actual control of the machine. On startup, the
@@ -222,20 +206,108 @@ each characteristic that can then also be consumed in Swift without worrying
 about different endianness or data size, and also help catch errors when
 serialising and de-serialising more complicated data structures.
 
+> TLDR
+>
+> - Architecture
+>   - Free RTOS (Threading)
+>   - Event Bridge
+> - Control
+>   - The loop
+>   - Peripherals
+>   - Controlling Temp
+>   - Programs
+> - Data
+>   - BLE / NimBLE
+>   - Protobuf
+>   - Interpreting Profiles
+
 ## App
 
-- Swift UI
+The beanstorm app is built using modern SwiftUI and communicates with Beanstorm
+OS via BLE using protobuf for message serialisation and de-serialisation. Having
+not worked with SwiftUI much prior to this, there was a bit of a learning curve,
+however I was really impressed by how quickly it was possible to achieve a fast
+native experience with animation and consistent styling. SwiftUI felt to me
+quite opinionated, but the defaults work very well and range of components
+including gauges, sliders and charts are all available.
+
+One of the first challenges I encountered was managing state and maintaining a
+separation between views, data and logic. This was further complicated by the
+SwiftUI Previews feature that enables live previewing of components. SwiftUI
+provides `ObservableObjects` that enable variables to be attributed
+`@Published`, which allow the UI to respond to any changes in state for these
+variables. I suppose one could think of this as similar to the `useState` hook
+in React. The published attribute can't be used in protocols which makes using
+them in previews slightly difficult. I suppose there are a few solutions to
+this, one being prop drilling (passing simple data through the component tree).
+I instead opted for using `CurrentValueSubject` in service protocols which
+models could then subscribe to as they need. This allows for constructing models
+in previews using a mock service.
+
+To interact with the different services exposed by the machine via BLE, I used
+Apple's CoreBluetooth framework, and SwiftProtobuf for interpreting and sending
+messages. I initiate a scan for devices containing the relevant services,
+display a list of available Beanstorm devices and then create a peripheral for
+the device the user selects. This populates a subject that the rest of the app
+can interact with. If the device disconnects for some reason (e.g. going out of
+range), the subject is cleared, allowing components to respond accordingly. The
+peripheral class subscribes to relevant BLE characteristics provided by the
+machine and exposes a number of subjects pertaining to properties such as
+temperature and pressure and also provides methods handle the interaction of
+larger data, for example sending profiles over to the machine or modifying
+settings.
+
+<figure>
+  <img
+    className="w-40"
+    src="/projects/beanstorm/device_connection.gif"
+    alt="Device connection."
+  />
+  <figcaption>Device Connection</figcaption>
+</figure>
+
 - Brew Graph
 - Swift UI Charts
 - Performance Issues
 - Canvas Drawing
+
+<figure>
+  <img
+    className="w-40"
+    src="/projects/beanstorm/brew_graph.gif"
+    alt="Brew graph."
+  />
+  <figcaption>Brew Graph</figcaption>
+</figure>
+
 - Brew Profiles
 - Saving / Loading
 - Profile Editor
 - Swift Data
-- BLE
-- Connecting Devices
-- Managing Connection State
-- Characteristics (Temp, Pressure, ...)
-- Transferring Profiles
-- Protobuf
+
+<figure>
+  <img
+    className="w-40"
+    src="/projects/beanstorm/profile_editor.gif"
+    alt="Profile editor."
+  />
+  <figcaption>Profile Editor</figcaption>
+</figure>
+
+> TLDR
+>
+> - Swift UI
+> - BLE
+>   - Connecting Devices
+>   - Managing Connection State
+>   - Characteristics (Temp, Pressure, ...)
+>   - Transferring Profiles
+>   - Protobuf
+> - Brew Graph
+>   - Swift UI Charts
+>   - Performance Issues
+>   - Canvas Drawing
+> - Brew Profiles
+>   - Saving / Loading
+>   - Profile Editor
+>   - Swift Data
