@@ -44,7 +44,7 @@ const Navbar = () => {
             {/*  <Link href="/projects">Projects</Link>*/}
             {/*</TabsTrigger>*/}
             <Button variant="link" className="h-full" asChild>
-              <Link href="mailto:work@leonps.com">Contact</Link>
+              <Link href="mailto:leon@leonps.com">Contact</Link>
             </Button>
             <Button variant="link" className="h-full" asChild>
               <Link href="https://github.com/leonp-s" target="_blank">
