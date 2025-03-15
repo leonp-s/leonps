@@ -123,6 +123,15 @@ const Projects = () => {
           imageAlt="Image Description"
           href="/projects/zones"
         />
+        <ImageBackgroundCard
+          title="Transcendence"
+          description="The all-in-one effects chain for enhanced slushwave production."
+          imageUrl="/projects/transcendence/transcendence_banner.png"
+          imageAlt="Tramscendence Banner"
+          href="https://transcendence.emberdsp.com"
+          cta="Visit the site"
+          openInNewTab={true}
+        />
         <SeperatedCard
           title="BeanstormOS"
           description="Espresso machine conversion incorperating pressure and temperature control via a native IOS app over BLE. Realtime control in C++, native IOS app in Swift/SwiftUI."
